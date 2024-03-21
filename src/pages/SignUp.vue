@@ -34,7 +34,7 @@
                                     <div class="d-flex justify-content-center align-items-center">
                                         <p style="height: 7vh;">
                                             If you have an account please <router-link to="/login"
-                                                style="color: gray">Login</router-link>
+                                                class="login-link">Login</router-link>
                                         </p>
 
                                     </div>
@@ -85,6 +85,19 @@ export default {
     background-size: cover;
     background-position: center;
 }*/
+
+.login-link {
+    color: gray;
+    margin-left: 5px;
+    display: inline-block;
+    width: 50px;
+}
+
+.login-link:hover {
+    color: #555;
+    font-weight: bold;
+
+}
 
 .signup-heading {
     font-weight: 300;

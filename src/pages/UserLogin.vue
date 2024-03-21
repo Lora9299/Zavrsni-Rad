@@ -1,7 +1,9 @@
 <template>
     <div class="container-fluid ps-md-0">
         <div class="row g-0">
-            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
+                <img src="/logincat.jpg" class="cat-image">
+            </div>
 
             <div class="col-md-8 col-lg-6">
                 <div class="login d-flex align-items-center py-5">
@@ -52,18 +54,36 @@ export default {
 </script>
 
 <style>
+.form-floating input:focus {
+    border-color: rgb(51, 51, 51);
+    box-shadow: 0 0 0 0.25rem rgba(248, 252, 255, 0.25) !important;
+}
+
 .login {
     min-height: 100vh;
 }
 
 .sign-up {
     color: gray;
+    margin-left: 5px;
+    display: inline-block;
+    width: 60px;
+}
+
+.sign-up:hover {
+    color: #555;
+    font-weight: bold;
 }
 
 .bg-image {
-    background-color: #C5ECE0;
+    /*background-color: #C5ECE0;*/
     background-size: cover;
     background-position: center;
+
+}
+
+.cat-image {
+    margin-left: auto;
 }
 
 .login-heading {
