@@ -1,6 +1,17 @@
+<template>
+    <section>
+        Cats Page
+        <item-list></item-list>
 
-<template> 
-<section>
-    Cats Page
-</section>
+    </section>
 </template>
+
+<script>
+import ItemList from '@/components/ItemList.vue';
+
+export default {
+    components: {
+        ItemList
+    }
+}
+</script>
