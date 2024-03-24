@@ -16,9 +16,8 @@ const router = createRouter({
     { path: "/login", component: UserLogin },
     { path: "/submit-ad", component: AdSubmission },
     { path: "/dogs", component: DogsPage },
-    { path: "/dogs/:id", component: PetDetails },
+    { path: "/pet/:id", component: PetDetails },
     { path: "/cats", component: CatsPage },
-    { path: "/cats/:id", component: PetDetails },
   ],
 });
 

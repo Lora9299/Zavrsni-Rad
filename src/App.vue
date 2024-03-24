@@ -1,7 +1,9 @@
 <template>
 
-  <the-header></the-header>
-  <router-view></router-view>
+  <main>
+    <the-header></the-header>
+    <router-view></router-view>
+  </main>
 
   <section>
 
@@ -13,6 +15,8 @@
 <script>
 
 import TheHeader from './components/TheHeader.vue';
+//import TheFooter from './components/TheFooter.vue';
+
 
 
 export default {
@@ -20,6 +24,7 @@ export default {
   components: {
 
     TheHeader,
+    // TheFooter,
 
   },
 
