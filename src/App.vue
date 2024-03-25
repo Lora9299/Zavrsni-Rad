@@ -10,12 +10,15 @@
     <sign-up @add-user="addUser"></sign-up>
 
   </section>
+
+  <the-footer></the-footer>
+
 </template>
 
 <script>
 
 import TheHeader from './components/TheHeader.vue';
-//import TheFooter from './components/TheFooter.vue';
+import TheFooter from './components/TheFooter.vue';
 
 
 
@@ -24,7 +27,7 @@ export default {
   components: {
 
     TheHeader,
-    // TheFooter,
+    TheFooter,
 
   },
 

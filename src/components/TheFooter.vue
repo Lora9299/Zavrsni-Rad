@@ -1,6 +1,6 @@
 <template>
 
-    <footer class="container-fluid bg-dark text-light text-center py-4">
+    <footer class="text-dark text-center py-4">
         <div class="container">
             <p>&copy; 2024 Lora</p>
         </div>
@@ -13,3 +13,12 @@ export default {
 
 };
 </script>
+
+<style>
+footer {
+
+    margin-top: auto;
+    background-color: #edf4ec;
+
+}
+</style>

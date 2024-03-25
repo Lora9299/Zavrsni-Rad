@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid pb-2">
         <div class="d-felx justify-content-center row">
             <div class="col-sm-1"></div>
 
@@ -62,3 +62,22 @@
 
     </div>
 </template>
+
+<style>
+.carousel-item {
+    height: 34rem;
+    background: #ececec;
+    position: relative;
+    border-radius: 8px;
+
+}
+
+.product-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+}
+</style>

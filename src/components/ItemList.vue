@@ -1,6 +1,6 @@
 <template>
 
-    <div class="container-fluid p-2">
+    <div class="container-fluid pt-2 pb-2">
         <div class="d-flex justify-content-center row">
             <div class="col-md-10">
                 <div class="row p-2 bg-white border rounded">
