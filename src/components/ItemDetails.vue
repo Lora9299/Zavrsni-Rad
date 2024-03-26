@@ -17,13 +17,13 @@
                     </div>
 
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
+                        <div class="carousel-item active align-items-center align-content-center">
                             <img class="img-fluid rounded product-image" src="/spaceholder_details.png">
                         </div>
-                        <div class="carousel-item">
+                        <div class="carousel-item align-items-center align-content-center">
                             <img src="/dogblue.jpg" class="img-fluid rounded product-image">
                         </div>
-                        <div class="carousel-item">
+                        <div class="carousel-item align-items-center align-content-center">
                             <img src="/dog_spaceholder.jpg" class="img-fluid rounded product-image">
                         </div>
                     </div>
@@ -43,7 +43,7 @@
             </div>
 
 
-            <div class="col-7 align-items-center align-content-center">
+            <div class="col-7">
                 <h4 class="ms-5 text-uppercase">Title</h4>
                 <div class="col-md-10 mt-5 border-bottom">
                     <p class="text-start"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
