@@ -4,6 +4,7 @@
       <ul class="logo">
         <router-link to="/home"><img src="/dogcat.png" alt="Cat and Dog Logo"
             style="width: 50px; height: auto;"></router-link>
+        <li><router-link to="/home">HOME</router-link></li>
       </ul>
       <ul class="middle">
         <li>
