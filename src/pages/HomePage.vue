@@ -4,19 +4,21 @@
     </section>
 
     <div class="containter pb-3">
-        <div id="carouselExampleDark" class="carousel carousel-dark slide">
+
+        <div id="homeCarousel" class="carousel carousel-dark slide">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             </div>
+
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="10000">
-                    <img src="catanddog.png" class="d-block w-100" alt="...">
+                    <img src="catanddog.png" class="d-block w-100 overlay-image" alt="...">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>First slide label</h5>
                         <p>Some representative placeholder content for the first slide.</p>
+                        <router-link to="/sign-up" class="btn btn-md btn-secondary">Sign up today</router-link>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -27,16 +29,33 @@
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
-                data-bs-slide="prev">
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
-                data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+
     </div>
+
+
 </template>
+
+
+<script>
+export default {
+
+};
+</script>
+
+<style>
+.overlay-image {
+    background-position: center;
+    background-size: cover;
+    opacity: 0.95;
+}
+</style>
