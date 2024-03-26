@@ -8,7 +8,7 @@
       </ul>
       <ul class="middle">
         <li>
-          <img src="/cat.png" alt="Cat" style="width: 25px; height: auto;">
+          <img src="/cat.png" alt="Cat" class="me-1" style="width: 25px; height: auto;">
           <router-link to="/cats">CATS</router-link>
         </li>
         <li>
