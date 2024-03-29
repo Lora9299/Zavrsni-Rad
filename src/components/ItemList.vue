@@ -16,6 +16,14 @@
                             <button class="btn btn-outline-secondary btn-sm mt-2" type="button">Favorite</button>
                         </div>
 
+                        <ul>
+                            <li v-for="animal in filteredAnimals" :key="animal.id">
+                                <p> Breed: {{ animal.breed }}</p>
+                                <p> Age: {{ animal.age }}</p>
+                            </li>
+                        </ul>
+
+
                     </div>
 
                 </div>
@@ -23,11 +31,14 @@
 
         </div>
     </div>
-
 </template>
 
 <script>
 export default {
-
+    computed: {
+        filteredAnimals() {
+            return this.$store.getters['animals/animals'];
+        }
+    }
 };
 </script>
