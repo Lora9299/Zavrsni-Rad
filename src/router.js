@@ -16,7 +16,7 @@ const router = createRouter({
     { path: "/login", component: UserLogin },
     { path: "/submit-ad", component: AdSubmission },
     { path: "/dogs", component: DogsPage },
-    { path: "/pet/:id", component: PetDetails },
+    { path: "/pet/:id", component: PetDetails, props: true },
     { path: "/cats", component: CatsPage },
     { path: "/", redirect: "/home" },
   ],

@@ -44,17 +44,11 @@
 
 
             <div class="col-7">
-                <h4 class="ms-5 text-uppercase">Title</h4>
+                <h4 class="ms-5 text-uppercase">{{ title }}</h4>
                 <div class="col-md-10 mt-5 border-bottom">
-                    <p class="text-start"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut
-                        labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur.
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                        id est laborum.</p>
+                    <p>{{ price }}</p>
+                    <p>{{ age }}</p>
+                    <p class="text-start">{{ description }}</p>
                 </div>
             </div>
 
@@ -62,6 +56,48 @@
 
     </div>
 </template>
+
+<script>
+export default {
+    props: ['id'],
+    data() {
+        return {
+            selectedItem: null,
+        };
+    },
+    computed: {
+
+        title() {
+            return this.selectedItem.title;
+        },
+        price() {
+            return this.selectedItem.price;
+        },
+        description() {
+            return this.selectedItem.description;
+        },
+        breed() {
+            return this.selectedItem.breed;
+        },
+        age() {
+            return this.selectedItem.age;
+        },
+        location() {
+            return this.selectedItem.location;
+
+        },
+        contactLink() {
+            return this.$route.path + '/' + this.id + '/contact';
+        }
+    },
+
+    created() {
+        this.selectedItem = this.$store.getters['animals/animals'].find((animal) => animal.id === this.id);
+    },
+
+}
+</script>
+
 
 <style>
 .carousel-item {

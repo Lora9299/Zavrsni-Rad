@@ -15,6 +15,8 @@ export default {
           breed: "Labrador",
           age: 9,
           price: 4000,
+          description: "Selling labrador puppies.",
+          location: "Florida, US",
         },
         {
           id: "a2",
@@ -24,6 +26,8 @@ export default {
           breed: "Birman",
           age: 9,
           price: 4000,
+          description: "Selling birman kittens.",
+          localation: "Germany",
         },
         {
           id: "a3",
@@ -32,7 +36,9 @@ export default {
           gender: "Female",
           breed: "Border Collie",
           age: 4,
-          price: 4000,
+          price: 4500,
+          description: "Selling border collie puppies.",
+          location: "Croatia",
         },
       ],
     };
