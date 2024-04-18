@@ -1,7 +1,7 @@
 <template>
     <section>
         Cats Page
-        <item-list></item-list>
+        <item-list animalType="cat"></item-list>
 
     </section>
 </template>

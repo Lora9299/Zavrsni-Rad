@@ -15,9 +15,19 @@ const router = createRouter({
     { path: "/sign-up", component: SignUp },
     { path: "/login", component: UserLogin },
     { path: "/submit-ad", component: AdSubmission },
-    { path: "/dogs", component: DogsPage },
+    {
+      path: "/dogs",
+      name: "Dogs",
+      component: DogsPage,
+      props: { animalType: "dog" },
+    },
     { path: "/pet/:id", component: PetDetails, props: true },
-    { path: "/cats", component: CatsPage },
+    {
+      path: "/cats",
+      name: "Cats",
+      component: CatsPage,
+      props: { animalType: "cat" },
+    },
     { path: "/", redirect: "/home" },
   ],
 });

@@ -63,28 +63,28 @@ export default {
     data() {
         return {
             selectedItem: null,
+            paramId: this.$route.params.id
         };
     },
     computed: {
 
         title() {
-            return this.selectedItem.title;
+            return this.selectedItem ? this.selectedItem.title : '';
         },
         price() {
-            return this.selectedItem.price;
+            return this.selectedItem ? this.selectedItem.price : '';
         },
         description() {
-            return this.selectedItem.description;
+            return this.selectedItem ? this.selectedItem.description : '';
         },
         breed() {
-            return this.selectedItem.breed;
+            return this.selectedItem ? this.selectedItem.breed : '';
         },
         age() {
-            return this.selectedItem.age;
+            return this.selectedItem ? this.selectedItem.age : '';
         },
         location() {
-            return this.selectedItem.location;
-
+            return this.selectedItem ? this.selectedItem.location : '';
         },
         contactLink() {
             return this.$route.path + '/' + this.id + '/contact';
@@ -92,7 +92,7 @@ export default {
     },
 
     created() {
-        this.selectedItem = this.$store.getters['animals/animals'].find((animal) => animal.id === this.id);
+        this.selectedItem = this.$store.getters['animals/animals'].find(animal => animal.id === this.paramId);
     },
 
 }

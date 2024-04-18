@@ -5,7 +5,7 @@
             <div class="item item-1">
                 <img class="img-fluid img-responsive rounded product-image" src="/paw.png">
             </div>
-            <div class=" item item-2">
+            <div class="item item-2">
 
                 <h4 class="ms-5 item-title border-bottom"> <router-link :to="itemDetailsLink"
                         class="title-link">{{ title }}</router-link>
