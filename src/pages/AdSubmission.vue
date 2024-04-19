@@ -44,6 +44,10 @@
                         <div class="form-control age-input">
                             <label class="top-label" for="age">AGE</label>
                             <input type="number" id="age">
+                            <label class="months-checkbox" for="age">Months</label>
+                            <input type="checkbox" id="months" @click="handleCheckboxClick('months')">
+                            <label class="years-checkbox" for="age">Years</label>
+                            <input type="checkbox" id="years" @click="handleCheckboxClick('years')">
                         </div>
 
                         <div class="form-control desc-input">
@@ -74,7 +78,18 @@ export default {
             animalType: 'cat',
             animalGender: 'male'
         }
+    },
+
+    methods: {
+        handleCheckboxClick(checkbox) {
+            if (checkbox === 'months') {
+                document.getElementById('years').checked = false;
+            } else if (checkbox === 'years') {
+                document.getElementById('months').checked = false;
+            }
+        }
     }
+
 }
 </script>
 
@@ -88,6 +103,7 @@ export default {
     display: flex;
     flex-direction: row;
     padding-left: 50px;
+    padding-bottom: 50px;
 }
 
 .left-side {
@@ -97,6 +113,7 @@ export default {
     align-items: center;
     padding-left: 40px;
     margin-right: 60px;
+    padding-bottom: 6px;
     flex-direction: column;
     /*row start / column start / row end / column end*/
 }
@@ -213,7 +230,9 @@ input[type="checkbox"]:checked::before {
     margin: 30px;
 }
 
-#adoptable {
+#adoptable,
+#months,
+#years {
     background-color: rgb(233, 232, 232);
     border: none;
     margin-left: 10px;
@@ -281,6 +300,7 @@ input[price]:focus {
 .age-input {
     border: none;
     margin: 30px;
+
 }
 
 #age {
@@ -288,6 +308,12 @@ input[price]:focus {
     border: none;
     margin-left: 10px;
     border-radius: 5px;
+    width: 100px;
+}
+
+.months-checkbox,
+.years-checkbox {
+    padding-left: 10px;
 }
 
 .desc-input {
