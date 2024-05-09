@@ -18,6 +18,7 @@ export default {
           price: 4000,
           description: "Selling labrador puppies.",
           location: "Florida, US",
+          contact: "9826467",
         },
         {
           id: "a2",
@@ -30,6 +31,7 @@ export default {
           price: 4000,
           description: "Selling birman kittens.",
           localation: "Germany",
+          contact: "26576347",
         },
         {
           id: "a3",
@@ -42,6 +44,7 @@ export default {
           price: 4500,
           description: "Selling border collie puppies.",
           location: "Croatia",
+          contact: "376245",
         },
         {
           id: "a4",
@@ -54,6 +57,7 @@ export default {
           price: 0,
           description: "Cat for adoption",
           location: "Croatia",
+          contact: "847398",
         },
       ],
     };

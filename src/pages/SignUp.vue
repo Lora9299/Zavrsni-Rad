@@ -11,20 +11,26 @@
                                 <h3 class="signup-heading text-center mb-4">Sign up!</h3>
 
                                 <form @submit.prevent="submitData">
-                                    <div class="form-floating mb-3">
-                                        <input type="email" v-model="enteredEmail" class="form-control"
-                                            id="floatingInput" placeholder="name@example.com">
-                                        <label for="floatingInput">Email address</label>
+                                    <div class="form-floating mb-3" :class="{ invalid: !enteredEmail.isValid }">
+                                        <input type="email" v-model.trim="enteredEmail.val"
+                                            @blur="clearValidity('enteredEmail')" class="form-control"
+                                            id="floatingEmailInput" placeholder="name@example.com">
+                                        <p v-if="!enteredEmail.isValid">Email can't be empty.</p>
+                                        <label for="floatingEmailInput">Email address</label>
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="password" v-model="enteredPassword" class="form-control"
+                                    <div class="form-floating mb-3" :class="{ invalid: !enteredPassword.isValid }">
+                                        <input type="password" v-model.trim="enteredPassword.val"
+                                            @blur="clearValidity('enteredPassword')" class="form-control"
                                             id="floatingPassword" placeholder="Password">
+                                        <p v-if="!enteredPassword.isValid">Password can't be empty.</p>
                                         <label for="floatingPassword">Password</label>
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" v-model="enteredUsername" class="form-control"
-                                            id="floatingInput" placeholder="username">
-                                        <label for="floatingInput">Username</label>
+                                    <div class="form-floating mb-3" :class="{ invalid: !enteredUsername.isValid }">
+                                        <input type="text" v-model.trim="enteredUsername.val"
+                                            @blur="clearValidity('enteredUsername')" class="form-control"
+                                            id="floatingUsernameInput" placeholder="username">
+                                        <p v-if="!enteredUsername.isValid">Username can't be empty.</p>
+                                        <label for="floatingUsernameInput">Username</label>
                                     </div>
                                     <div class="d-grid">
                                         <button class="btn btn-lg btn-secondary btn-signup text-uppercase fw-bold mb-2"
@@ -57,19 +63,68 @@
 
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
-    emits: ['add-user'],
+
     data() {
         return {
-            enteredEmail: '',
-            enteredPassword: '',
-            enteredUsername: ''
+            enteredEmail: {
+                val: '',
+                isValid: true,
+            },
+            enteredPassword: {
+                val: '',
+                isValid: true,
+            },
+            enteredUsername: {
+                val: '',
+                isValid: true,
+            },
+            formIsValid: true,
         };
     },
 
     methods: {
+
+        ...mapActions(['signUp']),
+
+        validateForm() {
+            this.formIsValid = true;
+            if (this.enteredEmail.val === '' || !this.enteredEmail.val.includes('@')) {
+                this.enteredEmail.isValid = false;
+                this.formIsValid = false;
+            }
+            if (this.enteredPassword.val === '') {
+                this.enteredPassword.isValid = false;
+                this.formIsValid = false;
+            }
+            if (this.enteredUsername.val === '') {
+                this.enteredUsername.isValid = false;
+                this.formIsValid = false;
+            }
+        },
+
+        clearValidity(input) {
+            this[input].isValid = true;
+        },
+
         submitData() {
-            this.$emit('add-user', this.enteredEmail, this.enteredPassword, this.enteredUsername);
+
+            this.validateForm();
+
+            if (!this.formIsValid) {
+                return;
+            }
+
+            const userData = {
+                email: this.enteredEmail.val,
+                password: this.enteredPassword.val,
+                username: this.enteredUsername.val
+            };
+
+            console.log('Entered Data:', userData)
+            this.$store.dispatch('users/signUp', userData);
         }
     },
 };
@@ -107,5 +162,13 @@ export default {
     font-size: 0.9rem;
     letter-spacing: 0.05rem;
     padding: 0.75rem 1rem;
+}
+
+.invalid label {
+    color: red;
+}
+
+.invalid input {
+    border: 1px solid red;
 }
 </style>
