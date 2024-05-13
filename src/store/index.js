@@ -11,10 +11,14 @@ const store = createStore({
   state() {
     return {
       animalId: "a5",
+      userId: "u2",
     };
   },
   getters: {
     userId(state) {
+      return state.userId;
+    },
+    animalId(state) {
       return state.animalId;
     },
   },

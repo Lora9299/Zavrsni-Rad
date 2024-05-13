@@ -14,6 +14,7 @@
 <script>
 import AnimalItem from '../components/animals/AnimalItem.vue';
 import AnimalFilter from '../components/animals/AnimalFilter.vue';
+import { mapGetters } from 'vuex';
 
 export default {
 
@@ -28,7 +29,7 @@ export default {
         return {
             activeFilter: {
                 adoptable: true
-            }
+            },
         }
     },
 
@@ -39,22 +40,48 @@ export default {
 
     computed: {
 
+        ...mapGetters(['animals']),
+
         filteredAnimals() {
-            const animals = this.$store.getters['animals/animals'].filter(animal => animal.type.toLowerCase() === this.animalType.toLowerCase());
+            const animals = this.$store.getters['animals/animals'];//.filter(animal => animal.type.toLowerCase() === this.animalType.toLowerCase());
+
+            console.log('Animals:', animals);
+
+            const animalsArray = Object.keys(animals).map(key => {
+                const animal = animals[key];
+
+                animal.key = key;
+                return animal;
+            });
+
+            console.log('Animals array:', animalsArray);
+
+            const typeFilter = animalsArray.filter(animal => {
+                return animal.type.toLowerCase() === this.animalType.toLowerCase()
+            });
+
             if (this.activeFilter.adoptable) {
-                return animals.filter(animal => animal.adoptable === true);
+                return typeFilter.filter(animal => animal.adoptable === true);
             } else {
                 // If the adoptable checkbox is unchecked, return all animals
-                return animals.filter(animal => animal.adoptable === false);
+                return typeFilter.filter(animal => animal.adoptable === false);
             }
         },
         hasAnimals() {
             return this.$store.getters['animals/hasAnimals'];
         }
     },
+
+    created() {
+        this.loadAnimals();
+    },
+
     methods: {
         setFilter(updatedFilter) {
             this.activeFilter = updatedFilter;
+        },
+        loadAnimals() {
+            this.$store.dispatch('animals/loadAnimals');
         }
     }
 };
