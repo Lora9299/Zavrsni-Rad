@@ -41,7 +41,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 ul {
     list-style: none;
 }
@@ -117,7 +117,7 @@ h5 {
 }
 
 .title-link:hover,
-:visited {
+.title-link:visited {
     color: grey;
 }
 

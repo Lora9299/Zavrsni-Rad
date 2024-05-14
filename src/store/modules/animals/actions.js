@@ -25,10 +25,11 @@ export default {
       }
     );
 
-    //const responseData = await response.json();
+    const responseData = await response.json();
 
     if (!response.ok) {
-      //error...
+      const error = new Error(responseData.message || "Failed to submit!");
+      throw error;
     }
 
     context.commit("submitAd", {
@@ -44,7 +45,8 @@ export default {
     const responseData = await response.json();
     console.log("Response Data:", responseData);
     if (!response.ok) {
-      //...
+      const error = new Error(responseData.message || "Failed to fetch data!");
+      throw error;
     }
 
     const animals = [];
