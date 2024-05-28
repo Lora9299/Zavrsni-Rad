@@ -19,7 +19,7 @@
             <ul>
                 <animal-ad v-for="animal in animals" :key="animal.id" :id="animal.id" :title="animal.title"
                     :type="animal.type" :breed="animal.breed" :age="animal.age" :price="animal.price"
-                    @edit-ad="editAd"></animal-ad>
+                    :description="animal.description" :location="animal.location" :contact="animal.contact"></animal-ad>
             </ul>
 
         </div>
@@ -69,30 +69,6 @@ export default {
             this.animals = [...cats, ...dogs];
         }
     },
-    methods: {
-        editAd() {
-            const adData = JSON.stringify({
-                id: this.id,
-                title: this.title,
-                type: this.type,
-                breed: this.breed,
-                age: this.age,
-                price: this.price,
-                months: this.months,
-                years: this.years,
-                gender: this.gender,
-                adoptable: this.adoptable,
-                description: this.description,
-                location: this.location,
-                contact: this.contact
-            });
-
-            this.$router.push({
-                name: 'AdSubmission',
-                query: { adData }
-            });
-        }
-    }
 };
 </script>
 

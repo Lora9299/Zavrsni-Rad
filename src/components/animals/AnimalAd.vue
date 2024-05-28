@@ -23,7 +23,7 @@
             <div class="item item-3">
                 <div class="buttons">
                     <router-link :to="itemDetailsLink" class="btn btn-secondary btn-sm">VIEW</router-link>
-                    <button @click="editAd()" class="btn btn-outline-secondary btn-sm mt-2" type="button">EDIT</button>
+                    <button @click="editAd" class="btn btn-outline-secondary btn-sm mt-2" type="button">EDIT</button>
                 </div>
                 <div class="delete-button">
                     <font-awesome-icon class="trash-icon" :icon="['fas', 'trash-can']" />

@@ -43,7 +43,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-
+import { auth } from '@/firebase.js';
 export default {
   computed: {
     ...mapGetters('users', ['isAuthenticated', 'user']),
@@ -53,9 +53,14 @@ export default {
   },
   methods: {
     ...mapActions('users', ['logout']),
-    logoutUser() {
-      this.logout();
-      this.$router.push('/login');
+    async logoutUser() {
+      try {
+        await auth.signOut(); // Sign out the user
+        this.logout(); // Dispatch Vuex action to update the store
+        this.$router.push('/login'); // Redirect to the login page
+      } catch (error) {
+        console.error('Error signing out:', error);
+      }
     }
   }
 };

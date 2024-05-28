@@ -3,6 +3,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -13,7 +14,6 @@ import {
   where,
   getDocs,
   getDoc,
-  signOut,
 } from "firebase/firestore";
 
 export default {
