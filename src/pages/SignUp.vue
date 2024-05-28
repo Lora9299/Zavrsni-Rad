@@ -1,7 +1,12 @@
 <template>
     <div class="container-fluid ps-md-0">
         <div class="row g-0">
-
+            <base-dialog :show="!!error" title="An error occurred" @close="handleError">
+                <p>{{ error }}</p>
+            </base-dialog>
+            <base-dialog :show="isLoading" title="Loading..." fixed>
+                <base-spinner></base-spinner>
+            </base-dialog>
 
             <div class="col-md-8 col-lg-6">
                 <div class="signup d-flex align-items-center py-5">
@@ -34,7 +39,8 @@
                                     </div>
                                     <div class="d-grid">
                                         <button class="btn btn-lg btn-secondary btn-signup text-uppercase fw-bold mb-2"
-                                            type="submit">Sign Up</button>
+                                            type="submit">Sign Up
+                                        </button>
                                     </div>
 
                                     <div class="d-flex justify-content-center align-items-center">
@@ -42,11 +48,8 @@
                                             If you have an account please <router-link to="/login"
                                                 class="login-link">Login</router-link>
                                         </p>
-
                                     </div>
-
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -56,17 +59,14 @@
             <div class="d-none d-md-flex col-md-4 col-lg-6 ">
                 <img src="/logindog.jpg">
             </div>
-
         </div>
     </div>
 </template>
 
-
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
-
     data() {
         return {
             enteredEmail: {
@@ -84,11 +84,11 @@ export default {
             formIsValid: true,
         };
     },
-
+    computed: {
+        ...mapGetters('users', ['error', 'isLoading']),
+    },
     methods: {
-
-        ...mapActions(['signUp']),
-
+        ...mapActions('users', ['signUp']),
         validateForm() {
             this.formIsValid = true;
             if (this.enteredEmail.val === '' || !this.enteredEmail.val.includes('@')) {
@@ -104,27 +104,28 @@ export default {
                 this.formIsValid = false;
             }
         },
-
         clearValidity(input) {
             this[input].isValid = true;
         },
-
-        submitData() {
-
+        async submitData() {
             this.validateForm();
 
             if (!this.formIsValid) {
                 return;
             }
 
-            const userData = {
+            await this.signUp({
                 email: this.enteredEmail.val,
                 password: this.enteredPassword.val,
-                username: this.enteredUsername.val
-            };
+                username: this.enteredUsername.val,
+            });
 
-            console.log('Entered Data:', userData)
-            this.$store.dispatch('users/signUp', userData);
+            if (!this.error) {
+                this.$router.push('/home');  // Adjust the route as needed
+            }
+        },
+        handleError() {
+            this.$store.commit('users/setError', null);
         }
     },
 };
@@ -134,12 +135,6 @@ export default {
 .signup {
     min-height: 100vh;
 }
-
-/*.bg-image {
-    background-color: #C5ECE0;
-    background-size: cover;
-    background-position: center;
-}*/
 
 .login-link {
     color: gray;
@@ -151,7 +146,6 @@ export default {
 .login-link:hover {
     color: #555;
     font-weight: bold;
-
 }
 
 .signup-heading {

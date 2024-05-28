@@ -1,8 +1,7 @@
 <template>
     <section>
-        Cats Page
+        <h1>Cats Page</h1>
         <item-list animalType="cat"></item-list>
-
     </section>
 </template>
 
@@ -11,7 +10,7 @@ import ItemList from '@/components/ItemList.vue';
 
 export default {
     components: {
-        ItemList
-    }
-}
+        ItemList,
+    },
+};
 </script>

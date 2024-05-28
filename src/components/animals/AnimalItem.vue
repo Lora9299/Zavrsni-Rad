@@ -12,10 +12,15 @@
                 </h4>
 
                 <li class="content">
-                    <h5>{{ type }}</h5>
+
                     <h5>Breed: <span class="prop-text">{{ breed }}</span></h5>
-                    <h5>Age: <span class="prop-text">{{ age }}</span> </h5>
-                    <h5 class="item-price">$ {{ price }}</h5>
+                    <h5>Age: <span class="prop-text">{{ age }}
+                            <span v-if="months">months</span>
+                            <span v-else-if="years">years</span>
+                        </span>
+                    </h5>
+
+                    <h5 class="item-price" v-if="price !== null">$ {{ price }}</h5>
                 </li>
             </div>
             <div class="item item-3">
@@ -32,7 +37,7 @@
 
 <script>
 export default {
-    props: ['id', 'title', 'type', 'breed', 'age', 'price'],
+    props: ['id', 'title', 'type', 'breed', 'age', 'price', 'months', 'years', 'gender', 'adoptable'],
     computed: {
         itemDetailsLink() {
             return '/pet/' + this.id;

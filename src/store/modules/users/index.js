@@ -1,22 +1,18 @@
-import mutations from "./mutations.js";
+// users/index.js
 import actions from "./actions.js";
+import mutations from "./mutations.js";
 import getters from "./getters.js";
 
 export default {
   namespaced: true,
   state() {
     return {
-      users: [
-        {
-          id: "u1",
-          email: "test@mail.com",
-          username: "tester",
-          password: "testpass",
-        },
-      ],
+      user: null,
+      error: null,
+      isLoading: false,
     };
   },
-  mutations,
   actions,
+  mutations,
   getters,
 };

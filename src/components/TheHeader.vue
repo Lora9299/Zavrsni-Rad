@@ -16,10 +16,25 @@
           <router-link to="/dogs">DOGS</router-link>
         </li>
       </ul>
+      <ul class="submit-ad">
+        <li v-if="isAuthenticated">
+          <router-link to="/submit-ad">SUBMIT AD</router-link>
+        </li>
+      </ul>
+
+      <ul class="authenticated" v-if="isAuthenticated">
+        Hello,
+        <li><router-link :to="{ name: 'AccountPage' }">{{ username }}</router-link></li>
+      </ul>
+
       <ul class="login">
-        <li>
+        <li v-if="!isAuthenticated">
           <font-awesome-icon icon="user" class="user-icon" />
           <router-link to="/login">LOGIN</router-link>
+        </li>
+        <li v-else>
+          <font-awesome-icon icon="user" class="user-icon" />
+          <button @click="logoutUser">LOG OUT</button>
         </li>
       </ul>
     </nav>
@@ -27,8 +42,22 @@
 </template>
 
 <script>
-export default {
+import { mapGetters, mapActions } from 'vuex';
 
+export default {
+  computed: {
+    ...mapGetters('users', ['isAuthenticated', 'user']),
+    username() {
+      return this.user ? this.user.username : ''; // Access the username from the user object
+    }
+  },
+  methods: {
+    ...mapActions('users', ['logout']),
+    logoutUser() {
+      this.logout();
+      this.$router.push('/login');
+    }
+  }
 };
 </script>
 
@@ -69,12 +98,16 @@ ul {
   margin-left: auto;
 }
 
+.submit-ad {
+  padding-left: 30px;
+}
+
 .user-icon {
   margin-right: 8px;
 }
 
 .login {
-  margin-left: auto;
+  margin-left: 250px;
 }
 
 ul li {
@@ -109,5 +142,25 @@ router-link-active {
   color: black;
   text-decoration: none;
   text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.authenticated {
+  padding-left: 50px;
+}
+
+p {
+  margin: 1rem;
+  position: relative;
+  padding: 4px;
+}
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 </style>

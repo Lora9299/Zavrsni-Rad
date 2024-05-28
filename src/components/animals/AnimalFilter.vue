@@ -1,38 +1,30 @@
+// AnimalFilter.vue
 <template>
     <span class="filter-option p-5">
-        <input type="checkbox" id="adoptable" class="custom-checkbox" checked @change="setFilter">
+        <input type="checkbox" id="adoptable" class="custom-checkbox" :checked="adoptableFilter" @change="setFilter">
         <label class="custom-label" for="adoptable">ADOPTABLE</label>
     </span>
 </template>
 
 <script>
-export default {
-    emits: ['change-filter'],
-    data() {
-        return {
-            filter: {
-                adoptable: true
-            }
-        };
+import { mapGetters, mapActions } from 'vuex';
 
+export default {
+    computed: {
+        ...mapGetters('animals', ['adoptableFilter']),
     },
     methods: {
+        ...mapActions('animals', ['setAdoptableFilter']),
         setFilter(event) {
-            const inputId = event.target.id;
             const isActive = event.target.checked;
-            const updatedFilter = {
-                ...this.filter,
-                [inputId]: isActive
-            };
-            this.filter = updatedFilter;
-            this.$emit('change-filter', updatedFilter);
+            this.setAdoptableFilter(isActive);
+            this.$emit('change-filter', { adoptable: isActive });
         }
-    },
-
-}
+    }
+};
 </script>
 
-<style>
+<style scoped>
 .custom-checkbox {
     display: none;
 }

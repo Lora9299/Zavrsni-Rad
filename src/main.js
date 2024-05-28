@@ -4,14 +4,19 @@ import router from "./router";
 import store from "./store/index.js";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMapMarkerAlt,
+  faUser,
+  faTrashCan,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import BaseSpinner from "./components/BaseSpinner.vue";
 import BaseButton from "./components/BaseButton.vue";
 import BaseDialog from "./components/BaseDialog.vue";
 
-library.add(faUser);
+library.add(faUser, faMapMarkerAlt, faTrashCan, faX);
 
 const app = createApp(App);
 

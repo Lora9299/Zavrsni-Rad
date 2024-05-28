@@ -1,12 +1,9 @@
 <template>
     <section>
         <div class="container-fluid form-container">
-
             <div class="container-fluid items-container">
                 <span class="submit-title">SUBMIT AN AD</span>
                 <form class="form-items" @submit.prevent="submitForm">
-
-
                     <div class="left-side">
                         <div class="form-control title-input" :class="{ invalid: !title.isValid }">
                             <label class="top-label" for="title">TITLE</label>
@@ -17,13 +14,11 @@
                             <label for="adoptable">FOR ADOPTION</label>
                             <input type="checkbox" id="adoptable" v-model="adoptable.val">
                         </div>
-
                         <div v-if="!adoptable.val" class="form-control price-input">
                             <label class="price-label" for="price">PRICE</label>
                             <input type="number" id="price" v-model.number="price.val">
                             <label class="euro" for="price">€</label>
                         </div>
-
                         <div class="form-control type-dropdown">
                             <label for="type">TYPE OF ANIMAL</label>
                             <select id="type" v-model="type.val">
@@ -31,7 +26,6 @@
                                 <option value="dog">Dog</option>
                             </select>
                         </div>
-
                         <div class="form-control gender-dropdown">
                             <label for="gender">GENDER</label>
                             <select id="gender" v-model="gender.val">
@@ -39,73 +33,57 @@
                                 <option value="female">Female</option>
                             </select>
                         </div>
-
                         <div class="form-control breed-input" :class="{ invalid: !breed.isValid }">
                             <label class="top-label" for="breed">BREED</label>
                             <input type="text" id="breed" v-model.trim="breed.val" @blur="clearValidity('breed')">
                             <p v-if="!breed.isValid">Breed can't be empty.</p>
                         </div>
-
                     </div>
-
-
                     <div class="right-side">
                         <div class="form-control age-input" :class="{ invalid: !age.isValid }">
                             <label class="top-label" for="age">AGE</label>
                             <input type="number" id="age" v-model.number="age.val" @blur="clearValidity('age')">
-
-
                             <label class="months-checkbox" for="age" value="months">Months</label>
                             <input type="checkbox" id="months" @change="handleCheckboxClick('months')"
                                 v-model="months.val">
-
                             <label class="years-checkbox" for="age" value="years">Years</label>
                             <input type="checkbox" id="years" @change="handleCheckboxClick('years')"
                                 v-model="years.val">
                             <p v-if="!age.isValid">Age can't be empty.</p>
                         </div>
-
                         <div class="form-control desc-input" :class="{ invalid: !description.isValid }">
                             <label class="top-label" for="description">DESCRIPTION </label>
                             <textarea type="text" id="description" rows="4" cols="40" v-model.trim="description.val"
                                 @blur="clearValidity('description')"></textarea>
                             <p v-if="!description.isValid">Description can't be empty.</p>
                         </div>
-
                         <div class="form-control location-input" :class="{ invalid: !location.isValid }">
                             <label class="top-label" for="location">LOCATION</label>
                             <input type="text" id="location" v-model.trim="location.val"
                                 @blur="clearValidity('location')">
                             <p v-if="!location.isValid">Location can't be empty.</p>
                         </div>
-
                         <div class="form-control" :class="{ invalid: !contact.isValid }">
                             <label class="top-label" for="contact">CONTACT</label>
                             <input type="text" id="contact" v-model.trim="contact.val" @blur="clearValidity('contact')">
                             <p v-if="!contact.isValid">Contact can't be empty.</p>
                         </div>
-
                         <div class="form-control img-input" :class="{ invalid: !images.isValid }">
                             <label class="image-input" for="image">ADD IMAGES</label>
                             <input type="file" id="image" class="input-file" ref="image" @change="handleImageChange"
-                                v-on:change="files" multiple @blur="clearValidity('image')">
+                                multiple @blur="clearValidity('image')">
                             <button class="custom-file-button" @click.prevent="$refs.image.click()">UPLOAD
                                 IMAGES</button>
                             <p v-if="!images.isValid" class="invalid-images">Please add at least one image.</p>
                         </div>
-
                     </div>
-
                     <div class="submit-container">
                         <button class="submit-btn">SUBMIT</button>
                     </div>
-
                     <div class="invalid-form">
                         <p v-if="!formIsValid"> Please make sure you've entered everything. </p>
                     </div>
-
                 </form>
-
                 <div class="form-background">
                     <img src="/background.jpg">
                 </div>
@@ -115,71 +93,46 @@
 </template>
 
 <script>
-
 import { mapActions } from 'vuex';
+import { getAuth } from "firebase/auth";
 
 export default {
     data() {
         return {
-            adoptable: {
-                val: false,
-                isValid: true,
-            },
-            type: {
-                val: 'cat',
-                isValid: true,
-            },
-            gender: {
-                val: 'male',
-                isValid: true,
-            },
-            title: {
-                val: '',
-                isValid: true,
-            },
-            price: {
-                val: null,
-                isValid: true,
-            },
-            age: {
-                val: null,
-                isValid: true,
-            },
-            months: {
-                val: false,
-                isValid: true,
-            },
-            years: {
-                val: false,
-                isValid: true,
-            },
-            description: {
-                val: '',
-                isValid: true,
-            },
-            location: {
-                val: '',
-                isValid: true,
-            },
-            breed: {
-                val: '',
-                isValid: true,
-            },
-            contact: {
-                val: '',
-                isValid: true,
-            },
-            images: {
-                val: [],
-                isValid: true,
-            },
+            adoptable: { val: false, isValid: true },
+            type: { val: 'cat', isValid: true },
+            gender: { val: 'male', isValid: true },
+            title: { val: '', isValid: true },
+            price: { val: null, isValid: true },
+            age: { val: null, isValid: true },
+            months: { val: false, isValid: true },
+            years: { val: false, isValid: true },
+            description: { val: '', isValid: true },
+            location: { val: '', isValid: true },
+            breed: { val: '', isValid: true },
+            contact: { val: '', isValid: true },
+            images: { val: [], isValid: true },
             formIsValid: true,
+            adData: null,
+        };
+    },
+    computed: {
+        isEditMode() {
+            return !!this.adData;
         }
     },
     methods: {
-
-        ...mapActions(['submitAd']),
-
+        ...mapActions('animals', ['addAnimal', 'updateAnimal']),
+        handleImageChange(event) {
+            const files = Array.from(event.target.files);
+            this.images.val = files.map(file => ({
+                name: file.name,
+                size: file.size,
+                type: file.type,
+                file: file,
+            }));
+            this.images.isValid = files.length > 0;
+        },
         handleCheckboxClick(checkbox) {
             if (checkbox === 'months' && this.months.val) {
                 this.years.val = false;
@@ -187,109 +140,96 @@ export default {
                 this.months.val = false;
             }
         },
-
-        handleImageChange(event) {
-            const images = event.target.files;
-
-            const imagesArray = Array.from(images);
-
-            const mappedImages = imagesArray.map(image => ({
-                name: image.name,
-                size: image.size,
-                type: image.type,
-            }))
-
-            this.images.val = mappedImages;
-            console.log('Selected Images:', this.images.val)
-
-        },
-
         clearValidity(input) {
             this[input].isValid = true;
-
         },
-
         validateForm() {
             this.formIsValid = true;
+            if (this.title.val === '') this.title.isValid = false;
+            if (this.breed.val === '') this.breed.isValid = false;
+            if (!this.adoptable.val && (!this.price.val || this.price.val < 0)) this.price.isValid = false;
+            if (!this.age.val || this.age.val < 0) this.age.isValid = false;
+            if (this.description.val === '') this.description.isValid = false;
+            if (this.location.val === '') this.location.isValid = false;
+            if (this.contact.val === '') this.contact.isValid = false;
+            if (this.images.val.length === 0) this.images.isValid = false;
 
-            if (this.title.val === '') {
-                this.title.isValid = false;
-                this.formIsValid = false;
-            }
-            if (this.breed.val === '') {
-                this.breed.isValid = false;
-                this.formIsValid = false;
-            }
-            if (!this.adoptable.val && !this.price.val || this.price.val < 0) {
-                this.price.isValid = false;
-                this.formIsValid = false;
-            }
-            if (!this.age.val || this.age.val < 0) {
-                this.age.isValid = false;
-                this.formIsValid = false;
-            }
-            if (this.months.val === false && this.years.val === false) {
-                this.age.isValid = false;
-                this.formIsValid = false;
-            }
-            if (this.description.val === '') {
-                this.description.isValid = false;
-                this.formIsValid = false;
-            }
-            if (this.location.val === '') {
-                this.location.isValid = false;
-                this.formIsValid = false;
-            }
-            if (this.contact.val === '') {
-                this.contact.isValid = false;
-                this.formIsValid = false;
-            }
-            if (this.images.val.length === 0) {
-                this.images.isValid = false;
-                this.formIsValid = false;
-            }
-
+            this.formIsValid = this.title.isValid && this.breed.isValid && this.price.isValid && this.age.isValid &&
+                this.description.isValid && this.location.isValid && this.contact.isValid && this.images.isValid;
         },
-
         submitForm() {
             this.validateForm();
+            if (this.formIsValid) {
+                const auth = getAuth();
+                const user = auth.currentUser;
 
-            if (!this.formIsValid) {
-                return;
+                const ad = {
+                    userId: user.uid,
+                    title: this.title.val,
+                    type: this.type.val,
+                    gender: this.gender.val,
+                    breed: this.breed.val,
+                    price: this.price.val,
+                    age: this.age.val,
+                    months: this.months.val,
+                    years: this.years.val,
+                    description: this.description.val,
+                    location: this.location.val,
+                    contact: this.contact.val,
+                    adoptable: this.adoptable.val,
+                    images: this.images.val.map(image => ({
+                        name: image.name,
+                        size: image.size,
+                        type: image.type,
+                        file: image.file,
+                    })),
+                };
+
+                const redirectPath = this.type.val === 'cat' ? '/cats' : '/dogs';
+
+                if (this.isEditMode) {
+                    ad.id = this.adData.id;
+                    this.updateAnimal(ad).then(() => {
+                        this.$router.push(redirectPath);
+                    }).catch(error => {
+                        console.error('Failed to update ad:', error);
+                    });
+                } else {
+                    this.addAnimal(ad).then(() => {
+                        this.$router.push(redirectPath);
+                    }).catch(error => {
+                        console.error('Failed to add ad:', error);
+                    });
+                }
             }
-
-            const formData = {
-                adoptable: this.adoptable.val,
-                type: this.type.val,
-                gender: this.gender.val,
-                title: this.title.val,
-                price: this.price.val,
-                age: this.age.val,
-                months: this.months.val,
-                years: this.years.val,
-                desc: this.description.val,
-                location: this.location.val,
-                breed: this.breed.val,
-                contact: this.contact.val,
-                images: this.images.val
-
-            };
-            console.log('Entered Data:', formData)
-
-            this.$store.dispatch('animals/submitAd', formData);
-
-            if (this.type.val === 'cat') {
-                this.$router.replace('/cats');
-            } else {
-                this.$router.replace('/dogs');
+        }
+    },
+    created() {
+        const queryData = this.$route.query.adData;
+        if (queryData) {
+            try {
+                this.adData = JSON.parse(queryData);
+                this.title.val = this.adData.title || '';
+                this.type.val = this.adData.type || 'cat';
+                this.breed.val = this.adData.breed || '';
+                this.age.val = this.adData.age || null;
+                this.price.val = this.adData.price || null;
+                this.months.val = this.adData.months || false;
+                this.years.val = this.adData.years || false;
+                this.gender.val = this.adData.gender || 'male';
+                this.adoptable.val = this.adData.adoptable || false;
+                this.description.val = this.adData.description || '';
+                this.location.val = this.adData.location || '';
+                this.contact.val = this.adData.contact || '';
+                this.images.val = this.adData.images || [];
+            } catch (error) {
+                console.error('Failed to parse adData:', error);
             }
-
-        },
-
+        }
     }
-
-}
+};
 </script>
+
 
 <style scoped>
 .items-container {
