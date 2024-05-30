@@ -2,7 +2,9 @@
     <section>
         <div class="container item-container p-3">
             <div class="item item-1">
-                <img class="img-fluid img-responsive rounded product-image" src="/paw.png">
+                <img v-if="images.length && images[0] !== '/paw.png'"
+                    class="img-fluid img-responsive rounded product-image" :src="images[0]">
+                <img v-else class="img-fluid img-responsive rounded product-image" src="/paw.png" alt="No Images">
             </div>
             <div class="item item-2">
                 <h4 class="ms-5 item-title border-bottom">
@@ -13,7 +15,7 @@
                         <h5>Breed: <span class="prop-text">{{ breed }}</span></h5>
                     </li>
                     <li v-if="price !== null">
-                        <h5 class="item-price">$ {{ price }}</h5>
+                        <h5 class="item-price">€ {{ price }}</h5>
                     </li>
                 </ul>
             </div>
@@ -95,6 +97,10 @@ export default {
         contact: {
             type: String,
             required: true
+        },
+        images: {
+            type: Array,
+            default: () => []
         }
     },
     data() {
@@ -105,6 +111,12 @@ export default {
     computed: {
         itemDetailsLink() {
             return `/pet/${this.id}`;
+        },
+        defaultImage() {
+            return ['/paw.png'];
+        },
+        displayedImages() {
+            return this.images.length ? this.images : this.defaultImage;
         }
     },
     methods: {
@@ -146,8 +158,8 @@ export default {
 };
 </script>
 
-
 <style scoped>
+/* Your existing styles */
 ul,
 li {
     list-style: none;
@@ -204,6 +216,13 @@ li {
     position: absolute;
     padding-left: 200px;
     padding-top: 25px;
+    justify-items: center;
+}
+
+.content,
+ul {
+    margin-left: 120px;
+    margin-top: 40px;
 }
 
 h5 {
@@ -233,10 +252,7 @@ h5 {
 }
 
 .item-price {
-
     font-size: 35px;
-    padding-left: 200px;
-
 }
 
 .buttons {
@@ -273,6 +289,5 @@ h5 {
     /* Increase the size of the trash icon */
     margin-top: 10px;
     /* Move the icon a bit more down */
-
 }
 </style>

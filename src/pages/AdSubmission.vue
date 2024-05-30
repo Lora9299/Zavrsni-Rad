@@ -2,6 +2,14 @@
     <section>
         <div class="container-fluid form-container">
             <div class="container-fluid items-container">
+
+                <base-dialog :show="!!error" title="An error occurred" @close="handleError">
+                    <p>{{ error }}</p>
+                </base-dialog>
+                <base-dialog :show="isLoading" title="Loading..." fixed>
+                    <base-spinner></base-spinner>
+                </base-dialog>
+
                 <span class="submit-title">SUBMIT AN AD</span>
                 <form class="form-items" @submit.prevent="submitForm">
                     <div class="left-side">
@@ -77,7 +85,7 @@
                         </div>
                     </div>
                     <div class="submit-container">
-                        <button class="submit-btn">SUBMIT</button>
+                        <button class="submit-btn" :disabled="isLoading">SUBMIT</button>
                     </div>
                     <div class="invalid-form">
                         <p v-if="!formIsValid"> Please make sure you've entered/checked everything. </p>
@@ -98,6 +106,7 @@ import { getAuth } from "firebase/auth";
 export default {
     data() {
         return {
+            isLoading: false,
             adoptable: { val: false, isValid: true },
             type: { val: 'cat', isValid: true },
             gender: { val: 'male', isValid: true },
@@ -159,6 +168,7 @@ export default {
         submitForm() {
             this.validateForm();
             if (this.formIsValid) {
+                this.isLoading = true;  // Show spinner
                 const auth = getAuth();
                 const user = auth.currentUser;
 
@@ -175,54 +185,39 @@ export default {
                     description: this.description.val,
                     location: this.location.val,
                     contact: this.contact.val,
+                    images: this.images.val.map(image => image.url ? { url: image.url } : image),
                     adoptable: this.adoptable.val,
-                    images: this.images.val,
                 };
-
-                const redirectPath = this.type.val === 'cat' ? '/cats' : '/dogs';
 
                 if (this.isEditMode) {
                     ad.id = this.adData.id;
-                    this.updateAnimal(ad).then(() => {
-                        this.$router.push(redirectPath);
-                    }).catch(error => {
-                        console.error('Failed to update ad:', error);
-                    });
+                    this.updateAnimal(ad)
+                        .then(() => {
+                            const redirectUrl = ad.type === 'cat' ? '/cats' : '/dogs';
+                            this.$router.push(redirectUrl);
+                        })
+                        .catch(err => {
+                            this.error = err.message || 'Failed to update the ad.';
+                            this.isLoading = false;  // Hide spinner
+                        });
                 } else {
-                    this.addAnimal(ad).then(() => {
-                        this.$router.push(redirectPath);
-                    }).catch(error => {
-                        console.error('Failed to add ad:', error);
-                    });
+                    this.addAnimal(ad)
+                        .then(() => {
+                            const redirectUrl = ad.type === 'cat' ? '/cats' : '/dogs';
+                            this.$router.push(redirectUrl);
+                        })
+                        .catch(err => {
+                            this.error = err.message || 'Failed to submit the ad.';
+                            this.isLoading = false;  // Hide spinner
+                        });
                 }
             }
-        }
-    },
-    created() {
-        const queryData = this.$route.query.adData;
-        if (queryData) {
-            try {
-                this.adData = JSON.parse(queryData);
-                this.title.val = this.adData.title || '';
-                this.type.val = this.adData.type || 'cat';
-                this.breed.val = this.adData.breed || '';
-                this.age.val = this.adData.age || null;
-                this.price.val = this.adData.price || null;
-                this.months.val = this.adData.months || false;
-                this.years.val = this.adData.years || false;
-                this.gender.val = this.adData.gender || 'male';
-                this.adoptable.val = this.adData.adoptable || false;
-                this.description.val = this.adData.description || '';
-                this.location.val = this.adData.location || '';
-                this.contact.val = this.adData.contact || '';
-                this.images.val = this.adData.images || [];
-            } catch (error) {
-                console.error('Failed to parse adData:', error);
-            }
+        },
+        handleError() {
+            this.error = null;
         }
     }
 };
-
 </script>
 
 

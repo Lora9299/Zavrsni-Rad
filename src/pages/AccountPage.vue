@@ -2,8 +2,8 @@
     <div class="account-container">
         <div class="user-info-container">
             <div>
-                <h2>{{ username }}'s Account</h2>
-                <h6>Your email: {{ email }}</h6>
+                <h2>Logged in as: <span>{{ username }}</span></h2>
+                <h6>Your email: <span>{{ email }}</span></h6>
                 <div class="account-delete">
                     <button class="delete-button">
                         <font-awesome-icon class="x-icon" :icon="['fas', 'x']" />
@@ -22,7 +22,7 @@
                 <animal-ad v-for="animal in animals" :key="animal.id" :id="animal.id" :title="animal.title"
                     :type="animal.type" :gender="animal.gender" :breed="animal.breed" :age="animal.age"
                     :price="animal.price" :description="animal.description" :location="animal.location"
-                    :contact="animal.contact" @adDeleted="removeAdFromList"></animal-ad>
+                    :contact="animal.contact" :images="animal.images" @adDeleted="removeAdFromList"></animal-ad>
             </ul>
             <p v-else>You have no ads</p>
         </div>
