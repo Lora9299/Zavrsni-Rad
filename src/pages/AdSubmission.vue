@@ -68,20 +68,19 @@
                             <input type="text" id="contact" v-model.trim="contact.val" @blur="clearValidity('contact')">
                             <p v-if="!contact.isValid">Contact can't be empty.</p>
                         </div>
-                        <div class="form-control img-input" :class="{ invalid: !images.isValid }">
+                        <div class="form-control img-input">
                             <label class="image-input" for="image">ADD IMAGES</label>
                             <input type="file" id="image" class="input-file" ref="image" @change="handleImageChange"
-                                multiple @blur="clearValidity('image')">
+                                multiple>
                             <button class="custom-file-button" @click.prevent="$refs.image.click()">UPLOAD
                                 IMAGES</button>
-                            <p v-if="!images.isValid" class="invalid-images">Please add at least one image.</p>
                         </div>
                     </div>
                     <div class="submit-container">
                         <button class="submit-btn">SUBMIT</button>
                     </div>
                     <div class="invalid-form">
-                        <p v-if="!formIsValid"> Please make sure you've entered everything. </p>
+                        <p v-if="!formIsValid"> Please make sure you've entered/checked everything. </p>
                     </div>
                 </form>
                 <div class="form-background">
@@ -125,13 +124,14 @@ export default {
         ...mapActions('animals', ['addAnimal', 'updateAnimal']),
         handleImageChange(event) {
             const files = Array.from(event.target.files);
-            this.images.val = files.map(file => ({
+            const newImages = files.map(file => ({
                 name: file.name,
                 size: file.size,
                 type: file.type,
                 file: file,
             }));
-            this.images.isValid = files.length > 0;
+            this.images.val = [...this.images.val.filter(img => img.url), ...newImages];
+            this.images.isValid = true;  // Allow empty array to be valid
         },
         handleCheckboxClick(checkbox) {
             if (checkbox === 'months' && this.months.val) {
@@ -152,10 +152,9 @@ export default {
             if (this.description.val === '') this.description.isValid = false;
             if (this.location.val === '') this.location.isValid = false;
             if (this.contact.val === '') this.contact.isValid = false;
-            if (this.images.val.length === 0) this.images.isValid = false;
 
             this.formIsValid = this.title.isValid && this.breed.isValid && this.price.isValid && this.age.isValid &&
-                this.description.isValid && this.location.isValid && this.contact.isValid && this.images.isValid;
+                this.description.isValid && this.location.isValid && this.contact.isValid;
         },
         submitForm() {
             this.validateForm();
@@ -177,12 +176,7 @@ export default {
                     location: this.location.val,
                     contact: this.contact.val,
                     adoptable: this.adoptable.val,
-                    images: this.images.val.map(image => ({
-                        name: image.name,
-                        size: image.size,
-                        type: image.type,
-                        file: image.file,
-                    })),
+                    images: this.images.val,
                 };
 
                 const redirectPath = this.type.val === 'cat' ? '/cats' : '/dogs';
@@ -228,6 +222,7 @@ export default {
         }
     }
 };
+
 </script>
 
 
@@ -298,9 +293,7 @@ textarea {
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
-    /* Remove the default arrows */
     margin: 0;
-    /* Optional: If you want to remove the space where the arrows were */
 }
 
 input[type="checkbox"] {
@@ -308,36 +301,22 @@ input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    /* Set the size of the checkbox */
     width: 20px;
     height: 20px;
-    /* Set the desired background color of the checkbox */
     background-color: #ccc;
-    /* Add some padding to visually separate the checkbox from its label */
     margin-right: 5px;
-    /* Position the checkbox relative to its container */
     position: relative;
-    /* Add a border-radius to round the checkbox */
     border-radius: 6px;
-    /* Add a border to give the checkbox a border */
     border: 2px solid #5b5959;
     vertical-align: middle;
 }
 
 input[type="checkbox"]:checked::before {
-    /* Change the background color of the checkbox when checked */
-
-    /* Change this to your desired color */
-    /* Add a content to create the checkmark */
     content: "\2713";
-    /* Unicode checkmark character */
-    /* Position the checkmark in the center of the checkbox */
     position: absolute;
     top: 50%;
     left: 50%;
-    /* Center the checkmark */
     transform: translate(-50%, -50%);
-    /* Set the color of the checkmark */
     color: rgb(0, 0, 0);
     font-size: 15px;
     font-weight: bold;

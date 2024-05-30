@@ -1,16 +1,13 @@
 <template>
     <section>
-
         <div class="container item-container p-3">
             <div class="item item-1">
                 <img class="img-fluid img-responsive rounded product-image" src="/paw.png">
             </div>
             <div class="item item-2">
-
-                <h4 class="ms-5 item-title border-bottom"> <router-link :to="itemDetailsLink"
-                        class="title-link">{{ title }}</router-link>
+                <h4 class="ms-5 item-title border-bottom">
+                    <router-link :to="itemDetailsLink" class="title-link">{{ title }}</router-link>
                 </h4>
-
                 <ul class="content">
                     <li>
                         <h5>Breed: <span class="prop-text">{{ breed }}</span></h5>
@@ -26,17 +23,34 @@
                     <button @click="editAd" class="btn btn-outline-secondary btn-sm mt-2" type="button">EDIT</button>
                 </div>
                 <div class="delete-button">
-                    <font-awesome-icon class="trash-icon" :icon="['fas', 'trash-can']" />
+                    <button @click="showDeleteDialog" class="btn-delete">
+                        <font-awesome-icon class="trash-icon" :icon="['fas', 'trash-can']" />
+                    </button>
                 </div>
             </div>
         </div>
-
-
+        <base-dialog :show="isDialogVisible" title="Confirm Delete" @close="isDialogVisible = false">
+            <template #default>
+                <p>Are you sure you want to delete this animal?</p>
+            </template>
+            <template #actions>
+                <base-button @click="confirmDelete">Yes</base-button>
+                <base-button @click="isDialogVisible = false">No</base-button>
+            </template>
+        </base-dialog>
     </section>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import BaseDialog from '../BaseDialog.vue';
+import BaseButton from '../BaseButton.vue';
+
 export default {
+    components: {
+        BaseDialog,
+        BaseButton,
+    },
     props: {
         id: {
             type: [String, Number],
@@ -62,14 +76,6 @@ export default {
             type: Number,
             default: null
         },
-        months: {
-            type: Number,
-            default: null
-        },
-        years: {
-            type: Number,
-            default: null
-        },
         gender: {
             type: String,
             required: true
@@ -91,12 +97,31 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            isDialogVisible: false
+        };
+    },
     computed: {
         itemDetailsLink() {
             return `/pet/${this.id}`;
         }
     },
     methods: {
+        ...mapActions('animals', ['deleteAnimal']),
+        showDeleteDialog() {
+            this.isDialogVisible = true;
+        },
+        async confirmDelete() {
+            try {
+                await this.deleteAnimal({ id: this.id, type: this.type });
+                this.$emit('adDeleted', this.id);
+            } catch (error) {
+                console.error('Failed to delete the ad:', error);
+            } finally {
+                this.isDialogVisible = false;
+            }
+        },
         editAd() {
             const adData = {
                 id: this.id,
@@ -105,8 +130,6 @@ export default {
                 breed: this.breed,
                 age: this.age,
                 price: this.price,
-                months: this.months,
-                years: this.years,
                 gender: this.gender,
                 adoptable: this.adoptable,
                 description: this.description,
@@ -114,15 +137,15 @@ export default {
                 contact: this.contact,
                 images: this.images
             };
-
             this.$router.push({
                 name: 'AdSubmission',
                 query: { adData: JSON.stringify(adData) }
             });
         }
     }
-}
+};
 </script>
+
 
 <style scoped>
 ul,
@@ -232,8 +255,16 @@ h5 {
 }
 
 .delete-button {
+    border: none;
     align-items: center;
     padding-top: 40%;
+}
+
+.btn-delete {
+    border: none;
+    color: inherit;
+    padding: 0;
+    background: none;
 }
 
 .trash-icon {

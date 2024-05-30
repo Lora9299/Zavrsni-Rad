@@ -79,6 +79,7 @@ export default {
     data() {
         return {
             selectedItem: null,
+
         };
     },
     computed: {
@@ -116,7 +117,9 @@ export default {
             return this.selectedItem ? this.selectedItem.contact : '';
         },
         images() {
-            return this.selectedItem && this.selectedItem.images.length ? this.selectedItem.images : ['/spaceholder_details.png', '/dogblue.jpg', '/dog_spaceholder.jpg'];
+            return this.selectedItem && this.selectedItem.images.length
+                ? this.selectedItem.images
+                : ['/paw.png'];
         }
     },
     watch: {
@@ -138,7 +141,6 @@ export default {
         async fetchAnimal(id) {
             console.log('Fetching animal with ID:', id);
             let animal = this.getAnimalById(id);
-            console.log('Animal fetched from store:', animal);
             if (!animal) {
                 console.log('Animal not found in store, loading animals from Firestore...');
                 await this.$store.dispatch('animals/loadAnimals');
@@ -146,10 +148,15 @@ export default {
             }
             this.selectedItem = animal;
             console.log('Fetched animal:', this.selectedItem);
+            console.log('Image URLs:', this.selectedItem ? this.selectedItem.images : 'No images');
         },
+        handleImageError(url) {
+            console.error(`Error loading image: ${url}`);
+        }
     },
 }
 </script>
+
 
 <style scoped>
 .container-fluid {
