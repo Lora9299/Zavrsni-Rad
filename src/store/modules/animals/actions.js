@@ -19,8 +19,9 @@ export default {
         throw new Error("User is not authenticated");
       }
 
+      const folderName = animal.type === "dog" ? "dogs" : "cats";
       const imageUploads = animal.images.map(async (image) => {
-        const storageRef = ref(storage, `images/${image.name}`);
+        const storageRef = ref(storage, `${folderName}/${image.name}`);
         await uploadBytes(storageRef, image.file);
         const url = await getDownloadURL(storageRef);
         return url;
@@ -32,7 +33,6 @@ export default {
         title: animal.title,
         adoptable: animal.adoptable,
         type: animal.type,
-        gender: animal.gender,
         breed: animal.breed,
         age: animal.age,
         months: animal.months,
@@ -72,13 +72,14 @@ export default {
         throw new Error("User is not authenticated");
       }
 
+      const folderName = animal.type === "dog" ? "dogs" : "cats";
       const newImages = animal.images.filter((image) => image.file);
       const existingImages = animal.images.filter((image) => !image.file);
 
       const imageUrls = existingImages.map((image) => image);
       if (newImages.length > 0) {
         const imageUploads = newImages.map(async (image) => {
-          const storageRef = ref(storage, `images/${image.name}`);
+          const storageRef = ref(storage, `${folderName}/${image.name}`);
           await uploadBytes(storageRef, image.file);
           const url = await getDownloadURL(storageRef);
           return url;
@@ -92,7 +93,6 @@ export default {
         title: animal.title,
         adoptable: animal.adoptable,
         type: animal.type,
-        gender: animal.gender,
         breed: animal.breed,
         age: animal.age,
         months: animal.months,
@@ -150,19 +150,12 @@ export default {
   async deleteAnimal({ commit }, { id, type }) {
     try {
       const parentDocRef = doc(db, "animals", "animalData");
-      let subcollectionPath = "cats";
-      if (type === "dog") {
-        subcollectionPath = "dogs";
-      }
+      let subcollectionPath = type === "dog" ? "dogs" : "cats";
 
       const animalDocRef = doc(parentDocRef, subcollectionPath, id);
       await deleteDoc(animalDocRef);
 
-      if (type === "dog") {
-        commit("removeDog", id);
-      } else if (type === "cat") {
-        commit("removeCat", id);
-      }
+      commit(type === "dog" ? "removeDog" : "removeCat", id);
     } catch (error) {
       console.error("Error deleting animal:", error);
       throw error;

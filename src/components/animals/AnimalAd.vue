@@ -78,10 +78,10 @@ export default {
             type: Number,
             default: null
         },
-        gender: {
-            type: String,
-            required: true
-        },
+        // gender: {
+        //     type: String,
+        //     required: true
+        // },
         adoptable: {
             type: Boolean,
             default: false
@@ -142,7 +142,7 @@ export default {
                 breed: this.breed,
                 age: this.age,
                 price: this.price,
-                gender: this.gender,
+                // gender: this.gender,
                 adoptable: this.adoptable,
                 description: this.description,
                 location: this.location,
@@ -159,7 +159,6 @@ export default {
 </script>
 
 <style scoped>
-/* Your existing styles */
 ul,
 li {
     list-style: none;
@@ -180,7 +179,6 @@ li {
     justify-content: center;
     border-radius: 50px;
     overflow: hidden;
-    /* Ensure content doesn't overflow rounded corners */
 }
 
 .item-1 {
@@ -264,16 +262,14 @@ h5 {
 .buttons button,
 .buttons a {
     width: 250%;
-    /* Make buttons wider */
     margin-bottom: 15px;
-    /* Add some space between buttons */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .delete-button {
     border: none;
     align-items: center;
-    padding-top: 40%;
+    margin-top: 40%;
 }
 
 .btn-delete {
@@ -286,8 +282,6 @@ h5 {
 .trash-icon {
     color: rgb(191, 56, 56);
     font-size: 1.5rem;
-    /* Increase the size of the trash icon */
     margin-top: 10px;
-    /* Move the icon a bit more down */
 }
 </style>

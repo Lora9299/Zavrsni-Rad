@@ -3,7 +3,7 @@
         <base-dialog :show="!!error" title="An error occurred!" @close="handleError">
             <p>{{ error }}</p>
         </base-dialog>
-
+        <h1 class="page-title">{{ animalType === 'cat' ? 'CATS' : 'DOGS' }}</h1>
         <div class="container">
             <section>
                 <animal-filter @change-filter="setFilter"></animal-filter>
@@ -15,8 +15,6 @@
 
         <div v-if="isLoading" class="spinner-container"><base-spinner></base-spinner></div>
         <ul v-if="hasAnimals && !isLoading">
-            <h2>{{ animalType === 'cat' ? 'CATS' : 'DOGS' }}</h2>
-
             <animal-item v-for="animal in filteredAnimals" :key="animal.id" :id="animal.id" :title="animal.title"
                 :type="animal.type" :breed="animal.breed" :age="animal.age" :months="animal.months"
                 :years="animal.years" :price="animal.price"></animal-item>
@@ -88,6 +86,11 @@ export default {
 .container {
     display: flex;
     align-items: center;
+}
+
+.page-title {
+    margin-left: 45%;
+    padding: 40px;
 }
 
 .refresh-btn {

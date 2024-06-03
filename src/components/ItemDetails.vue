@@ -30,27 +30,36 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center flex-wrap">
+                            <div v-for="(image, index) in images" :key="index" class="thumbnail-wrapper m-2">
+                                <img :src="image" class="img-thumbnail" :alt="'Image ' + (index + 1)">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-7">
                 <div class="advertisement-container">
                     <h1 class="title text-uppercase">{{ title }}</h1>
-                    <div class="price" v-if="price !== null">${{ price }}</div>
+                    <div class="price" v-if="price !== null">€{{ price }}</div>
+                    <div class="adoption" v-else>FOR ADOPTION</div>
                     <div class="details">
                         <div class="detail-item">
-                            <span class="breed-label">BREED:</span>
+                            <span class="breed-label">BREED</span>
                             <span class="breed-value">
-                                <p>{{ breed }}, {{ gender }}</p>
+                                <p>{{ breed }}</p>
                             </span>
                         </div>
                         <div class="detail-item">
-                            <span class="age-label">AGE:</span>
+                            <span class="age-label">AGE</span>
                             <span class="age-value">
-                                <p v-if="years">{{ age }} Years</p>
-                                <p v-else>{{ age }} Months</p>
+                                <p v-if="years">{{ age }} YEARS</p>
+                                <p v-else>{{ age }} MONTHS</p>
                             </span>
                         </div>
                     </div>
+                    <div class="description">DESCRIPTION</div>
                     <div class="description-card">{{ description }}</div>
                     <div class="footer">
                         <div class="location">
@@ -60,7 +69,34 @@
                             <span class="text">{{ location }}</span>
                         </div>
                         <div class="separator"></div>
-                        <div class="contact">CONTACT: {{ contact }}</div>
+                        <div class="contact">CONTACT: <font-awesome-icon icon="fa-phone" class="icon" /> {{ contact }}
+                        </div>
+                        <div class="uploader">UPLOADER:</div>
+                        <button class="profile-button" @click="showProfileCard = true">
+                            {{ uploaderUsername }}</button>
+                        <profile-card :show="showProfileCard" :title="profileTitle" class="profile-title"
+                            @close="showProfileCard = false">
+                            <div class="profile-content">
+                                <div class="profile-picture-container">
+                                    <div class="profile-picture">
+                                        <img v-if="profilePicture" :src="profilePicture" alt="Profile Picture" />
+                                    </div>
+                                </div>
+                                <div class="profile-data">
+                                    <div class="data"> <font-awesome-icon icon="user"
+                                            class="icon" />{{ uploaderUsername }}</div>
+                                    <span class="horizontal-line"></span>
+                                    <div class="data"> <font-awesome-icon icon="fa-envelope" class="icon" />{{ email }}
+                                    </div>
+                                    <span class="horizontal-line"></span>
+                                    <div class="data"> <font-awesome-icon icon="fa-phone" class="icon" />{{ contact }}
+                                    </div>
+                                    <span class="horizontal-line"></span>
+                                    <div class="data"> <font-awesome-icon icon="fa-map-marker-alt"
+                                            class="location-marker" /> {{ location }}</div>
+                                </div>
+                            </div>
+                        </profile-card>
                     </div>
                 </div>
             </div>
@@ -72,16 +108,23 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import ProfileCard from '../components/ProfileCard.vue';
 
 export default {
     props: ['id'],
     data() {
         return {
             selectedItem: null,
-
+            uploader: null,
+            showProfileCard: false,
         };
     },
+
+    components: {
+        ProfileCard
+    },
+
     computed: {
         ...mapGetters('animals', {
             getAnimalById: 'getAnimalById'
@@ -101,9 +144,6 @@ export default {
         breed() {
             return this.selectedItem ? this.selectedItem.breed : '';
         },
-        gender() {
-            return this.selectedItem ? this.selectedItem.gender : '';
-        },
         age() {
             return this.selectedItem ? this.selectedItem.age : '';
         },
@@ -120,23 +160,25 @@ export default {
             return this.selectedItem && this.selectedItem.images.length
                 ? this.selectedItem.images
                 : ['/paw.png'];
-        }
-    },
-    watch: {
-        routeId(newId) {
-            console.log('Route ID has changed:', newId);
-            if (newId) {
-                this.fetchAnimal(newId);
-            }
         },
-    },
-    created() {
-        if (this.routeId) {
-            this.fetchAnimal(this.routeId);
-        } else {
-            console.error('Route ID is undefined on created');
+
+        ...mapGetters('users', {
+            getUserById: 'getUserById'
+        }),
+        uploaderUsername() {
+            return this.uploader ? this.uploader.username : "";
+        },
+        email() {
+            return this.uploader ? this.uploader.email : "";
+        },
+        profilePicture() {
+            return this.uploader && this.uploader.profilePicture ? this.uploader.profilePicture : '';
+        },
+        profileTitle() {
+            return this.uploader ? this.uploader.username + "'s profile" : "Profile";
         }
     },
+
     methods: {
         async fetchAnimal(id) {
             console.log('Fetching animal with ID:', id);
@@ -146,30 +188,89 @@ export default {
                 await this.$store.dispatch('animals/loadAnimals');
                 animal = this.getAnimalById(id);
             }
-            this.selectedItem = animal;
-            console.log('Fetched animal:', this.selectedItem);
-            console.log('Image URLs:', this.selectedItem ? this.selectedItem.images : 'No images');
+            if (animal) {
+                this.selectedItem = animal;
+                console.log('Fetched animal:', this.selectedItem);
+                if (animal.userId) {
+                    console.log('Animal has userId:', animal.userId);
+                    await this.fetchUploader(animal.userId);
+                } else {
+                    console.error('Animal does not have a userId');
+                }
+            } else {
+                console.error('Animal not found after loading from Firestore.');
+            }
         },
-        handleImageError(url) {
-            console.error(`Error loading image: ${url}`);
+        async fetchUploader(userId) {
+            try {
+                console.log('Fetching uploader with ID:', userId);
+                const userData = await this.fetchUserById(userId);
+                this.uploader = userData;
+                console.log('Fetched uploader:', this.uploader);
+            } catch (error) {
+                console.error('Error fetching uploader:', error);
+            }
+        },
+        ...mapActions('users', ['fetchUserById']),
+    },
+
+    watch: {
+        routeId(newId) {
+            console.log('Route ID has changed:', newId);
+            if (newId) {
+                this.fetchAnimal(newId);
+            }
+        },
+    },
+
+    created() {
+        if (this.routeId) {
+            this.fetchAnimal(this.routeId);
+        } else {
+            console.error('Route ID is undefined on created');
         }
     },
-}
+};
 </script>
-
 
 <style scoped>
 .container-fluid {
-    height: 88vh;
+    min-height: 90vh;
+    padding-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .carousel-item {
-    height: 34rem;
+    height: 33rem;
     background: #ececec;
     position: relative;
     border-radius: 8px;
-    margin-bottom: 60px;
-    margin-top: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.carousel-indicators {
+    display: none;
+}
+
+.thumbnail-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-thumbnail {
+    max-width: 90px;
+    max-height: 90px;
+    object-fit: cover;
+    margin: 4px;
+
+}
+
+.img-thumbnail:focus {
+    max-width: 110px;
+    max-height: 110px;
 }
 
 .product-image {
@@ -183,32 +284,40 @@ export default {
 
 .title {
     font-size: 2.4em;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 
 .price {
     font-weight: bold;
     font-size: 3em;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    color: #5b725b;
+}
+
+.adoption {
+    font-weight: bold;
+    font-size: 2em;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    color: #5b725b;
 }
 
 .advertisement-container {
     width: 800px;
-    height: 545px;
+    min-height: 650px;
     padding: 20px;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     margin-top: 30px;
 }
 
 .details {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    padding-top: 40px;
 }
 
 .detail-item {
@@ -222,9 +331,10 @@ export default {
 }
 
 .breed-value p {
-    margin-left: 150px;
-    margin-top: 10px;
-    font-size: 1.2em;
+    margin-left: 80px;
+    margin-top: 5px;
+    font-size: 2em;
+    text-transform: uppercase;
 }
 
 .age-label {
@@ -234,13 +344,21 @@ export default {
 }
 
 .age-value p {
-    padding-left: 50px;
-    margin-top: 10px;
-    font-size: 1.2em;
+    margin-top: 5px;
+    font-size: 2em;
+    font-weight: 400;
+}
+
+.description {
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-top: 20px;
+    padding-right: 450px;
+
 }
 
 .description-card {
-    margin: 0 40px;
+    margin: 10px 40px;
     height: 135px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -251,6 +369,7 @@ export default {
 }
 
 .footer {
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -259,7 +378,7 @@ export default {
 .location {
     display: flex;
     font-size: 1.4em;
-    margin-left: 120px;
+    margin-left: 50px;
     align-items: center;
 }
 
@@ -275,7 +394,6 @@ export default {
 }
 
 .contact {
-    margin-right: 100px;
     font-size: 1.4em;
     font-weight: bold;
 }
@@ -289,5 +407,80 @@ export default {
 
 .carousel-indicators .visually-hidden {
     display: none;
+}
+
+.horizontal-line {
+    width: 100%;
+    height: 1px;
+    background-color: #ccccccba;
+}
+
+.uploader {
+    margin-left: 100px;
+}
+
+.profile-button {
+    border: none;
+    background: none;
+    margin-right: 50px;
+    font-weight: 600;
+    padding: 6px;
+}
+
+.profile-button:hover {
+    color: #555;
+}
+
+.profile-title {
+    text-transform: uppercase;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.profile-picture-container {
+    display: flex;
+    vertical-align: middle;
+    justify-content: center;
+    width: 100%;
+    background-color: rgb(219, 244, 218);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.data {
+    padding: 15px;
+    display: flex;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.profile-data {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
 }
 </style>

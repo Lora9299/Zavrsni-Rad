@@ -1,6 +1,5 @@
 <template>
     <section>
-        Details Page
         <item-details></item-details>
     </section>
 </template>

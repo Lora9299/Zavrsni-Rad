@@ -9,6 +9,26 @@ export default {
   setLoading(state, isLoading) {
     state.isLoading = isLoading;
   },
+  setUserById(state, { userId, userData }) {
+    state.users = {
+      ...state.users,
+      [userId]: userData,
+    };
+  },
+
+  setProfilePicture(state, url) {
+    if (state.user) {
+      state.user.profilePicture = url;
+    }
+  },
+
+  setContactLocation(state, { contact, location }) {
+    if (state.user) {
+      state.user.contact = contact;
+      state.user.location = location;
+    }
+  },
+
   clearUser(state) {
     state.user = null;
   },

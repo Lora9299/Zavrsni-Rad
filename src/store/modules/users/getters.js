@@ -1,4 +1,3 @@
-// users/getters.js
 export default {
   user(state) {
     return state.user;
@@ -11,5 +10,8 @@ export default {
   },
   isAuthenticated(state) {
     return !!state.user;
+  },
+  getUserById: (state) => (id) => {
+    return state.users[id];
   },
 };

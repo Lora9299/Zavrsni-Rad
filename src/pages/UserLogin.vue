@@ -71,8 +71,8 @@ export default {
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
                 userCredential.user;
-                await this.login({ email: this.email, password: this.password }); // Trigger Vuex login action
-                this.$router.push('/home');  // Redirect to home page after login
+                await this.login({ email: this.email, password: this.password });
+                this.$router.push('/home');
             } catch (error) {
                 console.error('Error logging in:', error);
                 this.handleError(error.message);
@@ -94,6 +94,7 @@ export default {
 
 .login {
     min-height: 100vh;
+    position: relative;
 }
 
 .sign-up {

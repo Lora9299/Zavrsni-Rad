@@ -121,7 +121,7 @@ export default {
             });
 
             if (!this.error) {
-                this.$router.push('/home');  // Adjust the route as needed
+                this.$router.push('/home');
             }
         },
         handleError() {
@@ -134,6 +134,7 @@ export default {
 <style>
 .signup {
     min-height: 100vh;
+    position: relative;
 }
 
 .login-link {

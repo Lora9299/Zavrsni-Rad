@@ -7,11 +7,11 @@
         <li><router-link to="/home">HOME</router-link></li>
       </ul>
       <ul class="middle">
-        <li>
+        <li class="cat-link">
           <img src="/cat.png" alt="Cat" class="me-1" style="width: 25px; height: auto;">
           <router-link to="/cats">CATS</router-link>
         </li>
-        <li>
+        <li class="dog-link">
           <img src="/dog2.png" alt="Dog" style="width: 25px; height: auto;">
           <router-link to="/dogs">DOGS</router-link>
         </li>
@@ -23,8 +23,14 @@
       </ul>
 
       <ul class="authenticated" v-if="isAuthenticated">
-        Hello,
-        <li><router-link :to="{ name: 'AccountPage' }">{{ username }}</router-link></li>
+
+        <li><router-link :to="{ name: 'AccountPage' }">
+            <div class="profile-picture-container">
+              <div class="profile-picture">
+                <img :src="profilePicture" alt="Profile Picture" />
+              </div>
+            </div>{{ username }}
+          </router-link></li>
       </ul>
 
       <ul class="login">
@@ -49,7 +55,10 @@ export default {
     ...mapGetters('users', ['isAuthenticated', 'user']),
     username() {
       return this.user ? this.user.username : ''; // Access the username from the user object
-    }
+    },
+    profilePicture() {
+      return this.user ? this.user.profilePicture : "";
+    },
   },
   methods: {
     ...mapActions('users', ['logout']),
@@ -77,6 +86,9 @@ header {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  /* z-index: 4;
+  position: sticky;
+  top: 0; */
 }
 
 nav {
@@ -103,8 +115,12 @@ ul {
   margin-left: auto;
 }
 
+.cat-link {
+  margin-right: 100px;
+}
+
 .submit-ad {
-  padding-left: 30px;
+  padding-left: 40px;
 }
 
 .user-icon {
@@ -112,7 +128,7 @@ ul {
 }
 
 .login {
-  margin-left: 250px;
+  margin-left: 150px;
 }
 
 ul li {
@@ -167,5 +183,29 @@ button {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+
+.profile-picture-container {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

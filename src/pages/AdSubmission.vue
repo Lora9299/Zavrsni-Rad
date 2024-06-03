@@ -34,13 +34,13 @@
                                 <option value="dog">Dog</option>
                             </select>
                         </div>
-                        <div class="form-control gender-dropdown">
+                        <!-- <div class="form-control gender-dropdown">
                             <label for="gender">GENDER</label>
                             <select id="gender" v-model="gender.val">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
-                        </div>
+                        </div> -->
                         <div class="form-control breed-input" :class="{ invalid: !breed.isValid }">
                             <label class="top-label" for="breed">BREED</label>
                             <input type="text" id="breed" v-model.trim="breed.val" @blur="clearValidity('breed')">
@@ -100,8 +100,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { getAuth } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default {
     data() {
@@ -109,7 +110,7 @@ export default {
             isLoading: false,
             adoptable: { val: false, isValid: true },
             type: { val: 'cat', isValid: true },
-            gender: { val: 'male', isValid: true },
+            // gender: { val: 'male', isValid: true },
             title: { val: '', isValid: true },
             price: { val: null, isValid: true },
             age: { val: null, isValid: true },
@@ -125,6 +126,8 @@ export default {
         };
     },
     computed: {
+        ...mapGetters(['user']),
+
         isEditMode() {
             return !!this.adData;
         }
@@ -140,7 +143,7 @@ export default {
                 file: file,
             }));
             this.images.val = [...this.images.val.filter(img => img.url), ...newImages];
-            this.images.isValid = true;  // Allow empty array to be valid
+            this.images.isValid = true;
         },
         handleCheckboxClick(checkbox) {
             if (checkbox === 'months' && this.months.val) {
@@ -168,7 +171,7 @@ export default {
         submitForm() {
             this.validateForm();
             if (this.formIsValid) {
-                this.isLoading = true;  // Show spinner
+                this.isLoading = true;
                 const auth = getAuth();
                 const user = auth.currentUser;
 
@@ -176,7 +179,7 @@ export default {
                     userId: user.uid,
                     title: this.title.val,
                     type: this.type.val,
-                    gender: this.gender.val,
+                    // gender: this.gender.val,
                     breed: this.breed.val,
                     price: this.price.val,
                     age: this.age.val,
@@ -198,7 +201,7 @@ export default {
                         })
                         .catch(err => {
                             this.error = err.message || 'Failed to update the ad.';
-                            this.isLoading = false;  // Hide spinner
+                            this.isLoading = false;
                         });
                 } else {
                     this.addAnimal(ad)
@@ -208,15 +211,36 @@ export default {
                         })
                         .catch(err => {
                             this.error = err.message || 'Failed to submit the ad.';
-                            this.isLoading = false;  // Hide spinner
+                            this.isLoading = false;
                         });
                 }
             }
         },
         handleError() {
             this.error = null;
+        },
+        fetchUserData() {
+            const auth = getAuth();
+            const user = auth.currentUser;
+            if (user) {
+                const db = getFirestore();
+                const docRef = doc(db, "users", user.uid);
+                getDoc(docRef).then(docSnap => {
+                    if (docSnap.exists()) {
+                        const userData = docSnap.data();
+                        this.contact.val = userData.contact || '';
+                        this.location.val = userData.location || '';
+                    }
+                }).catch(error => {
+                    console.error("Error fetching user data:", error);
+                });
+            }
         }
+    },
+    created() {
+        this.fetchUserData();
     }
+
 };
 </script>
 

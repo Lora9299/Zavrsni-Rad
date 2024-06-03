@@ -24,7 +24,6 @@
             <div class="item item-3">
                 <div class="buttons">
                     <router-link :to="itemDetailsLink" class="btn btn-secondary btn-sm">VIEW</router-link>
-                    <button class="btn btn-outline-secondary btn-sm mt-2" type="button">Favorite</button>
                 </div>
             </div>
         </div>
@@ -75,7 +74,6 @@ export default {
 </script>
 
 <style scoped>
-/* Your existing styles */
 ul {
     list-style: none;
 }
@@ -95,7 +93,6 @@ ul {
     justify-content: center;
     border-radius: 50px;
     overflow: hidden;
-    /* Ensure content doesn't overflow rounded corners */
 }
 
 .item-1 {
@@ -173,9 +170,7 @@ h5 {
 .buttons button,
 .buttons a {
     width: 250%;
-    /* Make buttons wider */
     margin-bottom: 15px;
-    /* Add some space between buttons */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>

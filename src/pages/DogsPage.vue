@@ -1,6 +1,5 @@
 <template>
     <section>
-        Dogs Page
         <item-list animalType="dog"></item-list>
     </section>
 </template>

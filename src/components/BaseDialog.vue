@@ -1,6 +1,6 @@
 <template>
   <teleport to="body">
-    <div v-if="show" @click="tryClose" class="backdrop"></div>
+    <div v-if="show" @click="close" class="backdrop"></div>
     <dialog open v-if="show">
       <header>
         <slot name="header">
@@ -12,7 +12,7 @@
       </section>
       <menu v-if="!fixed">
         <slot name="actions">
-          <base-button @click="tryClose">Close</base-button>
+          <base-button @click="close">Close</base-button>
         </slot>
       </menu>
     </dialog>
@@ -38,7 +38,7 @@ export default {
   },
   emits: ['close'],
   methods: {
-    tryClose() {
+    close() {
       if (this.fixed) {
         return;
       }
