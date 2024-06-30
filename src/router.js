@@ -27,19 +27,19 @@ const router = createRouter({
       component: DogsPage,
       props: { animalType: "dog" },
     },
-    { path: "/pet/:id", component: PetDetails, props: true },
     {
       path: "/cats",
       name: "Cats",
       component: CatsPage,
       props: { animalType: "cat" },
     },
+    { path: "/pet/:id", component: PetDetails, props: true },
     {
       path: "/account",
       name: "AccountPage",
       component: AccountPage,
       meta: {
-        requiresAuth: true, // Optional: Add meta to require auth
+        requiresAuth: true,
       },
     },
     { path: "/", redirect: "/home" },

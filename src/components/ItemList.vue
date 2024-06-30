@@ -34,16 +34,19 @@ export default {
             required: true,
         },
     },
+
     data() {
         return {
             isLoading: false,
             error: null,
         };
     },
+
     components: {
         AnimalItem,
         AnimalFilter,
     },
+
     computed: {
         ...mapGetters('animals', ['dogs', 'cats', 'hasAnimals', 'adoptableFilter']),
         filteredAnimals() {
@@ -52,20 +55,24 @@ export default {
                 (this.adoptableFilter ? animal.adoptable : !animal.adoptable));
         },
     },
+
     watch: {
         adoptableFilter(newFilter) {
             console.log('Filter changed:', newFilter);
         },
     },
+
     created() {
         this.refreshAnimals();
     },
+
     methods: {
         ...mapActions('animals', ['loadAnimals', 'setAdoptableFilter']),
         setFilter(updatedFilter) {
             console.log('Parent received filter:', updatedFilter);
             this.setAdoptableFilter(updatedFilter.adoptable);
         },
+
         async refreshAnimals() {
             this.isLoading = true;
             try {
@@ -75,6 +82,7 @@ export default {
             }
             this.isLoading = false;
         },
+
         handleError() {
             this.error = null;
         },

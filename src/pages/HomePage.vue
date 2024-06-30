@@ -6,9 +6,7 @@
     <vet-tips></vet-tips>
     <user-testimonials></user-testimonials>
 
-
 </template>
-
 
 <script>
 
@@ -29,7 +27,6 @@ export default {
         VetTips
 
     }
-
 
 };
 </script>

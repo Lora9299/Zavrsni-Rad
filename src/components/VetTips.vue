@@ -25,11 +25,16 @@
 
         <div class="item2">
             <div class="description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <p>Taking your pet for regular check-ups at the vet helps catch any potential issues early and monitors
+                    their health.
+                    Regular grooming helps keep your pet clean and reduces the risk of skin issues.
+                    Brush your cat or dog's coat regularly to prevent matting and reduce shedding.
+                    Dental health is crucial for dogs to prevent oral diseases such as gingivitis and periodontal
+                    disease,
+                    which can lead to more serious health problems. Ensure your pets are up to date on vaccinations,
+                    parasite prevention (fleas, ticks, and heartworms),
+                    and spaying/neutering if not intended for breeding.
+                </p>
             </div>
         </div>
 
@@ -112,6 +117,7 @@
 
 .description {
     text-align: center;
+    line-height: 35px;
     padding: 60px;
 }
 </style>

@@ -41,6 +41,7 @@
                         <font-awesome-icon class="x-icon" :icon="['fas', 'x']" />
                         Delete account
                     </button>
+
                 </div>
             </div>
         </div>
@@ -121,7 +122,7 @@ import BaseDialog from '../components/BaseDialog.vue';
 import BaseButton from '../components/BaseButton.vue';
 import BaseCard from '../components/BaseCard.vue';
 import { mapGetters, mapActions } from "vuex";
-import { getFirestore, collection, query, where, getDocs, doc } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default {
@@ -207,7 +208,7 @@ export default {
             this.isDeleting = true;
             try {
                 await this.$store.dispatch('users/deleteAccount');
-                this.$router.push({ name: 'Home' });
+                this.$router.push({ path: '/home' });
             } catch (error) {
                 console.error("Error deleting account:", error);
             } finally {
@@ -241,18 +242,41 @@ export default {
         validateForm() {
 
             this.formIsValid = true;
-            if (this.requiresPassword && this.password.val === '') {
-                this.passwordIsEmpty = true;
-                this.formIsValid = false;
+
+            if (this.requiresPassword) {
+                if (this.password.val === '') {
+                    this.passwordIsEmpty = true;
+                    this.password.isValid = false;
+                    console.log('Password is empty');
+                    this.formIsValid = false;
+                } else if (!this.checkPassword()) {
+                    this.password.isValid = false;
+                    console.log('Password is invalid');
+                    this.formIsValid = false;
+                } else {
+                    this.password.isValid = true;
+                    this.passwordIsEmpty = false;
+                }
             }
-            if (this.requiresPassword && !this.password.val === this.checkPassword()) {
-                this.password.isValid = false;
-                this.formIsValid = false;
+
+            if (this.editFieldType === 'email') {
+                if (this.editEmail.val === '' || !this.editEmail.val.includes('@')) {
+                    this.editEmail.isValid = false;
+                    console.log('Email is invalid');
+                    this.formIsValid = false;
+                } else {
+                    this.editEmail.isValid = true;
+                }
             }
-            if (this.editEmail.val === '' || !this.editEmail.val.includes('@')) {
-                this.editEmail.isValid = false;
-                this.formIsValid = false;
+
+            if (this.editFieldType === 'username') {
+                if (!this.editUsername.isValid) {
+                    console.log('Username is invalid or already taken');
+                    this.formIsValid = false;
+                }
             }
+
+
         },
 
         clearValidity(input) {
@@ -274,11 +298,13 @@ export default {
         },
 
         async saveEdit() {
+            console.log('saveEdit called');
             this.isSaving = true;
             this.passwordIsEmpty = false;
             this.validateForm();
 
             if (!this.formIsValid) {
+                console.log('Form is invalid');
                 this.isSaving = false;
                 return;
             }
@@ -286,11 +312,13 @@ export default {
             try {
                 if (this.requiresPassword && !await this.checkPassword()) {
                     this.password.isValid = false;
+                    console.error("Invalid password");
                     throw new Error("Invalid password");
                 }
 
                 if (this.editFieldType === 'username' && !await this.isUsernameUnique()) {
                     this.editUsername.isValid = false;
+                    console.log('Username is not unique');
                     this.isSaving = false;
                     return;
                 }
@@ -310,7 +338,7 @@ export default {
 
                 const db = getFirestore();
                 const userDoc = doc(db, 'users', this.user.uid);
-                await userDoc.update(updateData);
+                await updateDoc(userDoc, updateData);
 
             } catch (error) {
                 console.error("Error updating user info:", error);
@@ -345,9 +373,41 @@ export default {
         async validateUsername() {
             if (this.editUsername.val !== this.username) {
                 this.editUsername.isValid = await this.isUsernameUnique();
+                if (!this.editUsername.isValid) {
+                    console.log('Username is already taken');
+                }
             } else {
                 this.editUsername.isValid = true;
             }
+        }
+    },
+
+    async checkPassword() {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        const email = user.email;
+
+        try {
+            await signInWithEmailAndPassword(auth, email, this.password.val);
+            return true;
+        } catch (error) {
+            console.error("Error verifying password:", error);
+            return false;
+        }
+    },
+
+    async isUsernameUnique() {
+        const db = getFirestore();
+        const usersQuery = query(collection(db, "users"), where("username", "==", this.editUsername.val));
+        const usersSnapshot = await getDocs(usersQuery);
+        return usersSnapshot.empty;
+    },
+
+    async validateUsername() {
+        if (this.editUsername.val !== this.username) {
+            this.editUsername.isValid = await this.isUsernameUnique();
+        } else {
+            this.editUsername.isValid = true;
         }
     },
 
@@ -392,12 +452,10 @@ export default {
 }
 
 .profile-container {
-    /* background-color: rgb(163, 183, 156); */
     box-sizing: border-box;
     position: sticky;
     z-index: 5;
     top: 0;
-    /* top: 4rem; */
 }
 
 .profile-picture-container {

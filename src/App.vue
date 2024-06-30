@@ -5,12 +5,6 @@
     <router-view></router-view>
   </main>
 
-  <!-- <section>
-
-    <sign-up @add-user="addUser"></sign-up>
-
-  </section> -->
-
   <the-footer></the-footer>
 
 </template>
@@ -29,32 +23,7 @@ export default {
 
   },
 
-  // data() {
-  //   return {
-  //     users: [
-  //       {
-  //         email: '',
-  //         password: '',
-  //         username: ''
-  //       }
-  //     ]
-
-  //   }
-  // },
-
-  // methods: {
-  //   addUser(email, password, username) {
-  //     const newUser = {
-  //       email: email,
-  //       password: password,
-  //       username: username
-
-  //     };
-  //     this.users.push(newUser);
-  //   }
-  // },
 };
-
 
 </script>
 

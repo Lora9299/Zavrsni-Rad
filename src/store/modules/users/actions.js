@@ -35,7 +35,6 @@ export default {
     const db = getFirestore();
 
     try {
-      // Check if the username already exists
       const usernameQuery = query(
         collection(db, "users"),
         where("username", "==", username)
@@ -45,7 +44,6 @@ export default {
         throw new Error("Username already exists.");
       }
 
-      // Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -53,14 +51,12 @@ export default {
       );
       const user = userCredential.user;
 
-      // Save additional user data in Firestore
       await setDoc(doc(db, "users", user.uid), {
         username,
         email,
         createdAt: new Date(),
       });
 
-      // Commit user data to the state
       commit("setUser", { uid: user.uid, email, username });
     } catch (error) {
       commit("setError", error.message || "Failed to sign up, try later.");
@@ -133,16 +129,14 @@ export default {
           const animalId = animalDoc.id;
           const animalType = animalData.type;
 
-          // Use the deleteAnimal action to delete the ad
           deletePromises.push(
             dispatch(
-              "animals/deleteAnimal",
+              "deleteAnimal",
               { id: animalId, type: animalType },
               { root: true }
             )
           );
 
-          // Delete images from storage
           if (animalData.images && animalData.images.length) {
             const imageDeletePromises = animalData.images.map((imagePath) => {
               const imageRef = ref(storage, imagePath);
@@ -155,13 +149,10 @@ export default {
 
       await Promise.all(deletePromises);
 
-      // Delete user document
       await deleteDoc(doc(db, "users", userId));
 
-      // Delete user from authentication
       await deleteUser(user);
 
-      // Sign out the user and clear state
       await signOut(auth);
       commit("clearUser");
     } catch (error) {

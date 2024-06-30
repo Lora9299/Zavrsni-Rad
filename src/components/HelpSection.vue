@@ -17,10 +17,21 @@
                     </div>
                     <div class="separator"></div>
                     <div class="description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                            voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <p>Cats are independent animals which require less maintenance and attention, making them ideal
+                            pets for people
+                            with busy lifestyles. They adapt well to living in apartments or small houses because they
+                            don't need large spaces
+                            or the outdoors. They spend most of their time sleeping and are quiet animals convenient for
+                            people who prefer
+                            a pet that doesn't make much noise. Cats don't need to be taken out for a walk or need to be
+                            trained,
+                            they use litter boxes for their bathroom needs. The cost of care is less expensive because
+                            most cats
+                            have short fur and don't need grooming,
+                            they groom themselves. Due to cats being smaller animals they don't need as much food as
+                            dogs
+                            do.
+                        </p>
                     </div>
                 </div>
 
@@ -30,10 +41,20 @@
                 <div class="content">
 
                     <div class="description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                            voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <p>Dogs are perfect pets for someone who loves spending time outdoors because they require lots
+                            of exercise.
+                            They are known for their loyalty towards their owner, ideal for someone seeking a close bond
+                            with their pet.
+                            Dogs can serve as home guards because they can alert their owners with barking or scare off
+                            an intruder.
+                            Owning a dog can help increase social interaction because dog owners can often meet other
+                            owners at the dog park.
+                            A lot of people enjoy training their dogs tricks and obedience which can make them suitable
+                            for partaking in dog shows.
+                            Dogs are family friendly pets, can serve as emotional support animals and therapy animals
+                            for providing comfort and
+                            reducing anxiety and stress.
+                        </p>
                     </div>
                     <div class="separator"></div>
                     <div class="item-title">
@@ -46,10 +67,6 @@
             </div>
 
         </div>
-
-
-
-
 
     </div>
 </template>
@@ -126,7 +143,7 @@
 .description p {
     margin: 0;
     font-size: 1em;
-    text-align: right;
-    /* Align the description text to the right */
+    text-align: center;
+    line-height: 30px;
 }
 </style>

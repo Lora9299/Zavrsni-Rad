@@ -86,9 +86,6 @@ header {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  /* z-index: 4;
-  position: sticky;
-  top: 0; */
 }
 
 nav {

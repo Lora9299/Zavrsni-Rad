@@ -10,7 +10,7 @@
                     <base-spinner></base-spinner>
                 </base-dialog>
 
-                <span class="submit-title">SUBMIT AN AD</span>
+                <span class="submit-title">{{ isEditMode ? 'EDIT AD' : 'SUBMIT AN AD' }}</span>
                 <form class="form-items" @submit.prevent="submitForm">
                     <div class="left-side">
                         <div class="form-control title-input" :class="{ invalid: !title.isValid }">
@@ -34,13 +34,6 @@
                                 <option value="dog">Dog</option>
                             </select>
                         </div>
-                        <!-- <div class="form-control gender-dropdown">
-                            <label for="gender">GENDER</label>
-                            <select id="gender" v-model="gender.val">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div> -->
                         <div class="form-control breed-input" :class="{ invalid: !breed.isValid }">
                             <label class="top-label" for="breed">BREED</label>
                             <input type="text" id="breed" v-model.trim="breed.val" @blur="clearValidity('breed')">
@@ -85,7 +78,7 @@
                         </div>
                     </div>
                     <div class="submit-container">
-                        <button class="submit-btn" :disabled="isLoading">SUBMIT</button>
+                        <button class="submit-btn" :disabled="isLoading">{{ isEditMode ? 'UPDATE' : 'SUBMIT' }}</button>
                     </div>
                     <div class="invalid-form">
                         <p v-if="!formIsValid"> Please make sure you've entered/checked everything. </p>
@@ -110,7 +103,6 @@ export default {
             isLoading: false,
             adoptable: { val: false, isValid: true },
             type: { val: 'cat', isValid: true },
-            // gender: { val: 'male', isValid: true },
             title: { val: '', isValid: true },
             price: { val: null, isValid: true },
             age: { val: null, isValid: true },
@@ -155,19 +147,24 @@ export default {
         clearValidity(input) {
             this[input].isValid = true;
         },
+
         validateForm() {
             this.formIsValid = true;
             if (this.title.val === '') this.title.isValid = false;
             if (this.breed.val === '') this.breed.isValid = false;
-            if (!this.adoptable.val && (!this.price.val || this.price.val < 0)) this.price.isValid = false;
+            if (!this.adoptable.val) {
+                if (!this.price.val || this.price.val < 0) this.price.isValid = false;
+            }
             if (!this.age.val || this.age.val < 0) this.age.isValid = false;
             if (this.description.val === '') this.description.isValid = false;
             if (this.location.val === '') this.location.isValid = false;
             if (this.contact.val === '') this.contact.isValid = false;
 
-            this.formIsValid = this.title.isValid && this.breed.isValid && this.price.isValid && this.age.isValid &&
+            this.formIsValid = this.title.isValid && this.breed.isValid &&
+                (this.adoptable.val || this.price.isValid) && this.age.isValid &&
                 this.description.isValid && this.location.isValid && this.contact.isValid;
         },
+
         submitForm() {
             this.validateForm();
             if (this.formIsValid) {
@@ -179,7 +176,6 @@ export default {
                     userId: user.uid,
                     title: this.title.val,
                     type: this.type.val,
-                    // gender: this.gender.val,
                     breed: this.breed.val,
                     price: this.price.val,
                     age: this.age.val,
@@ -216,9 +212,11 @@ export default {
                 }
             }
         },
+
         handleError() {
             this.error = null;
         },
+
         fetchUserData() {
             const auth = getAuth();
             const user = auth.currentUser;
@@ -235,12 +233,30 @@ export default {
                     console.error("Error fetching user data:", error);
                 });
             }
+        },
+
+        initializeFormFields() {
+            const { adData } = this.$route.query;
+            if (adData) {
+                const parsedAdData = JSON.parse(adData);
+                this.adData = parsedAdData;
+                this.title.val = parsedAdData.title;
+                this.type.val = parsedAdData.type;
+                this.breed.val = parsedAdData.breed;
+                this.age.val = parsedAdData.age;
+                this.price.val = parsedAdData.price;
+                this.description.val = parsedAdData.description;
+                this.location.val = parsedAdData.location;
+                this.contact.val = parsedAdData.contact;
+                this.images.val = parsedAdData.images;
+            }
         }
     },
+
     created() {
         this.fetchUserData();
+        this.initializeFormFields();
     }
-
 };
 </script>
 
@@ -272,7 +288,6 @@ export default {
     align-items: center;
     padding: 10px;
     flex-direction: column;
-    /*row start / column start / row end / column end*/
 }
 
 .right-side {
@@ -469,10 +484,6 @@ label[for="price"] {
     padding-left: 10px;
 }
 
-/*.desc-input {
-    border: none;
-}*/
-
 #description {
     background-color: rgb(233, 232, 232);
     border: none;
@@ -551,7 +562,6 @@ select {
     margin-top: 50px;
     grid-area: 3/2/4/2;
     grid-column: span 2;
-    /*row start / column start / row end / column end*/
 }
 
 .submit-btn {

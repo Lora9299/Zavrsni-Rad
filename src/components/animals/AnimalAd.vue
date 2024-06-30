@@ -78,10 +78,6 @@ export default {
             type: Number,
             default: null
         },
-        // gender: {
-        //     type: String,
-        //     required: true
-        // },
         adoptable: {
             type: Boolean,
             default: false
@@ -142,7 +138,6 @@ export default {
                 breed: this.breed,
                 age: this.age,
                 price: this.price,
-                // gender: this.gender,
                 adoptable: this.adoptable,
                 description: this.description,
                 location: this.location,
@@ -184,7 +179,6 @@ li {
 .item-1 {
     background-color: #9cc599;
     grid-area: 1/1/4/4;
-    /*row start / column start / row end / column end*/
     border-radius: 50px;
     display: flex;
     justify-content: center;

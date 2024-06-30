@@ -126,7 +126,7 @@ ul {
 
 .content {
     position: absolute;
-    padding-left: 200px;
+    padding-left: 400px;
     padding-top: 25px;
 }
 
@@ -157,8 +157,9 @@ h5 {
 }
 
 .item-price {
-    font-size: 35px;
-    padding-left: 200px;
+    font-size: 40px;
+    margin-top: 25px;
+    padding-left: 40px;
 }
 
 .buttons {

@@ -162,9 +162,10 @@ export default {
                 : ['/paw.png'];
         },
 
-        ...mapGetters('users', {
+        /*...mapGetters('users', {
             getUserById: 'getUserById'
-        }),
+        }),*/
+
         uploaderUsername() {
             return this.uploader ? this.uploader.username : "";
         },
@@ -181,7 +182,6 @@ export default {
 
     methods: {
         async fetchAnimal(id) {
-            console.log('Fetching animal with ID:', id);
             let animal = this.getAnimalById(id);
             if (!animal) {
                 console.log('Animal not found in store, loading animals from Firestore...');
@@ -340,7 +340,7 @@ export default {
 .age-label {
     font-weight: bold;
     font-size: 1.4em;
-    padding-right: 150px;
+    padding-right: 160px;
 }
 
 .age-value p {
@@ -377,7 +377,7 @@ export default {
 
 .location {
     display: flex;
-    font-size: 1.4em;
+    font-size: 1.2em;
     margin-left: 50px;
     align-items: center;
 }
@@ -394,7 +394,7 @@ export default {
 }
 
 .contact {
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
@@ -416,7 +416,7 @@ export default {
 }
 
 .uploader {
-    margin-left: 100px;
+    margin-left: 50px;
 }
 
 .profile-button {

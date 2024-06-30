@@ -10,28 +10,40 @@
                 <h5>TIP 1</h5>
                 <div class="separator"></div>
             </div>
-            <div class="item-content">Content for Tip 1</div>
+            <div class="item-content">Make sure to make time for playing with your pet, as this can help to drain the
+                excess energy they have.
+                Take your dogs on regular walks, depending on the size of your dog they may need to go for a walk once
+                or twice a day. This will
+                maintain the dogs health and be good daily exercise.
+            </div>
         </div>
         <div class="item">
             <div class="item-title">
                 <h5>TIP 2</h5>
                 <div class="separator"></div>
             </div>
-            <div class="item-content">Content for Tip 2</div>
+            <div class="item-content">Groom your longhaired pets regularly. This can help prevent their fur getting
+                tangled and overgrowing
+                but will also help longhaired cats have less hairballs. </div>
         </div>
         <div class="item">
             <div class="item-title">
                 <h5>TIP 3</h5>
                 <div class="separator"></div>
             </div>
-            <div class="item-content">Content for Tip 3</div>
+            <div class="item-content">Provide your pets with food full of nutrients, depending on their size. Nutritious
+                food helps
+                maintain the health of your pet and help them live longer.
+            </div>
         </div>
         <div class="item">
             <div class="item-title">
                 <h5>TIP 4</h5>
                 <div class="separator"></div>
             </div>
-            <div class="item-content">Content for Tip 4</div>
+            <div class="item-content">Cats thrive in environments that stimulate their natural behaviors such as
+                climbing, scratching, and hunting.
+                Provide a variety of toys, scratching posts, and vertical spaces like cat trees. </div>
         </div>
     </div>
 
@@ -97,6 +109,7 @@
 
 .item-content {
     text-align: center;
+    line-height: 30px;
     margin-top: 10px;
 }
 </style>
