@@ -54,7 +54,7 @@ export default {
   computed: {
     ...mapGetters('users', ['isAuthenticated', 'user']),
     username() {
-      return this.user ? this.user.username : ''; // Access the username from the user object
+      return this.user ? this.user.username : '';
     },
     profilePicture() {
       return this.user ? this.user.profilePicture : "";
@@ -64,9 +64,9 @@ export default {
     ...mapActions('users', ['logout']),
     async logoutUser() {
       try {
-        await auth.signOut(); // Sign out the user
-        this.logout(); // Dispatch Vuex action to update the store
-        this.$router.push('/login'); // Redirect to the login page
+        await auth.signOut();
+        this.logout();
+        this.$router.push('/login');
       } catch (error) {
         console.error('Error signing out:', error);
       }

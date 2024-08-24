@@ -174,18 +174,13 @@ export default {
     const storageRef = ref(storage, `profilePictures/${userId}/${image.name}`);
 
     try {
-      // Upload the file to storage
       await uploadBytes(storageRef, image);
-
-      // Get the download URL
       const downloadURL = await getDownloadURL(storageRef);
 
-      // Update the user document with the profile picture URL
       await updateDoc(doc(db, "users", userId), {
         profilePicture: downloadURL,
       });
 
-      // Commit the update to the Vuex store
       commit("setProfilePicture", downloadURL);
     } catch (error) {
       commit(

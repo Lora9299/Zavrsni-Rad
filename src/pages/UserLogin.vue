@@ -110,7 +110,7 @@ export default {
 }
 
 .bg-image {
-    /*background-color: #C5ECE0;*/
+
     background-size: cover;
     background-position: center;
 

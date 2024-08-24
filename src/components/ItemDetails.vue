@@ -162,9 +162,6 @@ export default {
                 : ['/paw.png'];
         },
 
-        /*...mapGetters('users', {
-            getUserById: 'getUserById'
-        }),*/
 
         uploaderUsername() {
             return this.uploader ? this.uploader.username : "";
