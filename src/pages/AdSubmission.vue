@@ -115,6 +115,7 @@ export default {
             images: { val: [], isValid: true },
             formIsValid: true,
             adData: null,
+            error: null,
         };
     },
     computed: {
