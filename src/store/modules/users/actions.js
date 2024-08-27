@@ -131,7 +131,7 @@ export default {
 
           deletePromises.push(
             dispatch(
-              "deleteAnimal",
+              "animals/deleteAnimal",
               { id: animalId, type: animalType },
               { root: true }
             )
