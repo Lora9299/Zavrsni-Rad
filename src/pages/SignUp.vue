@@ -13,40 +13,41 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-8 mx-auto">
-                                <h3 class="signup-heading text-center mb-4">Sign up!</h3>
+                                <h3 class="signup-heading text-center mb-4">Registriraj se!</h3>
 
                                 <form @submit.prevent="submitData">
                                     <div class="form-floating mb-3" :class="{ invalid: !enteredEmail.isValid }">
                                         <input type="email" v-model.trim="enteredEmail.val"
                                             @blur="clearValidity('enteredEmail')" class="form-control"
                                             id="floatingEmailInput" placeholder="name@example.com">
-                                        <p v-if="!enteredEmail.isValid">Email can't be empty.</p>
-                                        <label for="floatingEmailInput">Email address</label>
+                                        <p v-if="!enteredEmail.isValid"> Polje za e-mail ne smije biti prazno.</p>
+                                        <label for="floatingEmailInput">Email adresa</label>
                                     </div>
                                     <div class="form-floating mb-3" :class="{ invalid: !enteredPassword.isValid }">
                                         <input type="password" v-model.trim="enteredPassword.val"
                                             @blur="clearValidity('enteredPassword')" class="form-control"
                                             id="floatingPassword" placeholder="Password">
-                                        <p v-if="!enteredPassword.isValid">Password can't be empty.</p>
-                                        <label for="floatingPassword">Password</label>
+                                        <p v-if="!enteredPassword.isValid">Polje za lozinku ne smije biti prazno.</p>
+                                        <label for="floatingPassword">Lozinka</label>
                                     </div>
                                     <div class="form-floating mb-3" :class="{ invalid: !enteredUsername.isValid }">
                                         <input type="text" v-model.trim="enteredUsername.val"
                                             @blur="clearValidity('enteredUsername')" class="form-control"
                                             id="floatingUsernameInput" placeholder="username">
-                                        <p v-if="!enteredUsername.isValid">Username can't be empty.</p>
-                                        <label for="floatingUsernameInput">Username</label>
+                                        <p v-if="!enteredUsername.isValid">Polje za korisničko ime ne smije biti prazno.
+                                        </p>
+                                        <label for="floatingUsernameInput">Korisničko ime</label>
                                     </div>
                                     <div class="d-grid">
                                         <button class="btn btn-lg btn-secondary btn-signup text-uppercase fw-bold mb-2"
-                                            type="submit">Sign Up
+                                            type="submit">Registriraj se
                                         </button>
                                     </div>
 
                                     <div class="d-flex justify-content-center align-items-center">
                                         <p style="height: 7vh;">
-                                            If you have an account please <router-link to="/login"
-                                                class="login-link">Login</router-link>
+                                            Ako već imate korisnički račun <router-link to="/login"
+                                                class="login-link">Prijavite se</router-link>
                                         </p>
                                     </div>
                                 </form>
@@ -141,7 +142,7 @@ export default {
     color: gray;
     margin-left: 5px;
     display: inline-block;
-    width: 50px;
+    width: 80px;
 }
 
 .login-link:hover {

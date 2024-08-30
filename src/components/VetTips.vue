@@ -5,12 +5,13 @@
         <div class="item1">
 
             <div class="title">
-                <span>H</span>
-                <span>E</span>
+                <span>Z</span>
+                <span>D</span>
+                <span>R</span>
                 <span>A</span>
-                <span>L</span>
-                <span>T</span>
-                <span>H</span>
+                <span>V</span>
+                <span>LJ</span>
+                <span>E</span>
             </div>
 
             <div class="main-content">
@@ -25,15 +26,15 @@
 
         <div class="item2">
             <div class="description">
-                <p>Taking your pet for regular check-ups at the vet helps catch any potential issues early and monitors
-                    their health.
-                    Regular grooming helps keep your pet clean and reduces the risk of skin issues.
-                    Brush your cat or dog's coat regularly to prevent matting and reduce shedding.
-                    Dental health is crucial for dogs to prevent oral diseases such as gingivitis and periodontal
-                    disease,
-                    which can lead to more serious health problems. Ensure your pets are up to date on vaccinations,
-                    parasite prevention (fleas, ticks, and heartworms),
-                    and spaying/neutering if not intended for breeding.
+                <p>Redoviti pregledi vašeg ljubimca kod veterinara pomažu u ranom otkrivanju mogućih problema i prate
+                    njihovo zdravlje. Redovito češljanje i kupanje pomaže održavati vašeg ljubimca čistim i smanjuje
+                    rizik od
+                    problema s kožom. Češljajte krzno svoje mačke ili psa redovito kako biste spriječili stvaranje
+                    čvorova i smanjili linjanje. Zdravlje zuba je ključno za pse kako bi se spriječile bolesti usne
+                    šupljine poput gingivitisa i parodontalne bolesti, koje mogu dovesti do ozbiljnijih zdravstvenih
+                    problema. Osigurajte da se vaši ljubimci redovito cijepe, budu zaštićeni od parazita (buhe, krpelji
+                    i
+                    srčani crvi) te sterilizirani/kastrirani ako ih ne namjeravate razmnožavati.
                 </p>
             </div>
         </div>
@@ -54,7 +55,7 @@
 .item1 {
     position: relative;
     width: 400px;
-    height: 500px;
+    height: 550px;
     padding: 20px;
     margin: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

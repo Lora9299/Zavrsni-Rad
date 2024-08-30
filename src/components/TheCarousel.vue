@@ -12,17 +12,17 @@
                 <div class="carousel-item active" data-bs-interval="10000">
                     <img src="catanddog.png" class="d-block w-100 overlay-image" alt="...">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Sign up to submit an ad</h5>
-                        <p>Sell or put an animal up for adoption today.</p>
-                        <router-link to="/sign-up" class="btn btn-md btn-secondary">Sign up today</router-link>
+                        <h5>Registirajte se kako bi predali oglas</h5>
+                        <p>Postavite životinju na prodaju ili za udomljavanje već danas.</p>
+                        <router-link to="/sign-up" class="btn btn-md btn-secondary">Registrirajte se danas</router-link>
                     </div>
                 </div>
                 <div class="carousel-item position-relative">
                     <img src="Animals.jpg" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-none d-md-block position-absolute top-0 start-50 translate-middle-x">
-                        <h5>Looking for a new pet?</h5>
-                        <p>Check out our <router-link to="/cats" class="pet-link">Cats</router-link> and <router-link
-                                to="/dogs" class="pet-link">Dogs</router-link>.</p>
+                        <h5>Tražite novog kućnog ljubimca?</h5>
+                        <p>Pregledajte naše <router-link to="/cats" class="pet-link">Mačke</router-link> i <router-link
+                                to="/dogs" class="pet-link">Pse</router-link>.</p>
                     </div>
                 </div>
             </div>

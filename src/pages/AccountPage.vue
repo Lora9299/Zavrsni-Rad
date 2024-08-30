@@ -9,7 +9,7 @@
                         </template>
                         <template v-else>
                             <img v-if="profilePicture" :src="profilePicture" alt="Profile Picture" />
-                            <button v-else class="upload-button">SET IMAGE</button>
+                            <button v-else class="upload-button">POSTAVI SLIKU</button>
                         </template>
                         <input type="file" ref="fileInput" @change="onFileChange" class="file-input" />
                     </div>
@@ -17,7 +17,7 @@
 
                 <div class="user-info">
                     <div class="info">
-                        USERNAME: <span class="data">{{ username }}</span>
+                        KORISNIČKO IME: <span class="data">{{ username }}</span>
                         <button class="edit" @click="editField('username')"><font-awesome-icon
                                 :icon="['fas', 'edit']" /></button>
                     </div>
@@ -27,11 +27,11 @@
                                 :icon="['fas', 'edit']" /></button>
                     </div>
                     <span class="horizontal-line"></span>
-                    <div class="info">CONTACT: <span class="data">{{ contact }}</span> <button class="edit"
+                    <div class="info">KONTAKT: <span class="data">{{ contact }}</span> <button class="edit"
                             @click="editField('contact')"><font-awesome-icon :icon="['fas', 'edit']" /></button>
                     </div>
                     <span class="horizontal-line"></span>
-                    <div class="info">CITY:<span class="data">{{ location }}</span><button class="edit"
+                    <div class="info">GRAD:<span class="data">{{ location }}</span><button class="edit"
                             @click="editField('location')"><font-awesome-icon :icon="['fas', 'edit']" /></button></div>
                     <span class="horizontal-line"></span>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="account-delete">
                     <button class="delete-button" @click="showDeleteDialog = true">
                         <font-awesome-icon class="x-icon" :icon="['fas', 'x']" />
-                        Delete account
+                        Obriši račun.
                     </button>
 
                 </div>
@@ -49,7 +49,7 @@
         <div class="vertical-line"></div>
 
         <div class="user-ads-container">
-            <h2>Your Animals</h2>
+            <h2>Vaše životinje</h2>
             <div v-if="isLoading" class="spinner-container">
                 <base-spinner></base-spinner>
             </div>
@@ -59,23 +59,23 @@
                     :price="animal.price" :description="animal.description" :location="animal.location"
                     :contact="animal.contact" :images="animal.images" @adDeleted="removeAdFromList"></animal-ad>
             </ul>
-            <p v-else>You have no ads</p>
+            <p v-else>Nemate oglasa</p>
         </div>
 
         <base-dialog :show="showDeleteDialog" title="Confirm Delete Account" @close="showDeleteDialog = false">
             <template #default>
-                <p>Are you sure you want to delete your account? This action cannot be undone and will delete all your
-                    ads.</p>
+                <p>Jeste li sigurni da želite obrisati račun? Ova radnja se ne može poništiti i obrisati će sve vaše
+                    oglase.</p>
             </template>
             <template #actions>
-                <base-button @click="confirmDeleteAccount">Yes</base-button>
-                <base-button @click="showDeleteDialog = false">No</base-button>
+                <base-button @click="confirmDeleteAccount">Da</base-button>
+                <base-button @click="showDeleteDialog = false">Ne</base-button>
             </template>
         </base-dialog>
 
         <base-dialog :show="isDeleting" title="Deleting Account">
             <template #default>
-                <p>Please wait while we delete your account...</p>
+                <p>Brisanje računa...</p>
                 <base-spinner></base-spinner>
             </template>
         </base-dialog>
@@ -86,28 +86,28 @@
             </div>
             <div v-else>
                 <div v-if="editFieldType === 'username'" class="form-control">
-                    <label for="edit-username">Username</label>
+                    <label for="edit-username">Korisničko ime</label>
                     <input type="text" id="edit-username" v-model="editUsername.val" @input="validateUsername" />
-                    <p v-if="!editUsername.isValid" class="input-error">Username already exists.</p>
+                    <p v-if="!editUsername.isValid" class="input-error">Korisničko ime već postoji.</p>
                 </div>
                 <div v-if="editFieldType === 'email'" class="form-control">
                     <label for="edit-email">Email</label>
                     <input type="text" id="edit-email" v-model="editEmail.val" />
-                    <p v-if="!this.editEmail.isValid" class="input-error">E-mail must include an @.</p>
+                    <p v-if="!this.editEmail.isValid" class="input-error">E-mail mora sadržavati @.</p>
                 </div>
                 <div v-if="requiresPassword" class="form-control">
-                    <label for="edit-password">Password</label>
+                    <label for="edit-password">Lozinka</label>
                     <input type="password" @blur="clearValidity('password')" id="edit-password"
                         v-model="password.val" />
-                    <p v-if="!this.password.isValid" class="input-error">Password must be correct.</p>
-                    <p v-if="this.passwordIsEmpty" class="input-error">Password can't be empty.</p>
+                    <p v-if="!this.password.isValid" class="input-error">Lozinka mora biti točna.</p>
+                    <p v-if="this.passwordIsEmpty" class="input-error">Lozinka ne smije biti prazna.</p>
                 </div>
                 <div v-if="editFieldType === 'contact'" class="form-control">
-                    <label for="edit-contact">Contact</label>
+                    <label for="edit-contact">Kontakt</label>
                     <input type="text" id="edit-contact" v-model="editContact" />
                 </div>
                 <div v-if="editFieldType === 'location'" class="form-control">
-                    <label for="edit-location">Location</label>
+                    <label for="edit-location">Lokacija</label>
                     <input type="text" id="edit-location" v-model="editLocation" />
                 </div>
             </div>

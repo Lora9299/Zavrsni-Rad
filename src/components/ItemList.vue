@@ -3,13 +3,13 @@
         <base-dialog :show="!!error" title="An error occurred!" @close="handleError">
             <p>{{ error }}</p>
         </base-dialog>
-        <h1 class="page-title">{{ animalType === 'cat' ? 'CATS' : 'DOGS' }}</h1>
+        <h1 class="page-title">{{ animalType === 'cat' ? 'MAČKE' : 'PSI' }}</h1>
         <div class="container">
             <section>
                 <animal-filter @change-filter="setFilter"></animal-filter>
             </section>
             <div class="refresh-btn">
-                <base-button mode="outline" @click="refreshAnimals">Refresh</base-button>
+                <base-button mode="outline" @click="refreshAnimals">Osvježi</base-button>
             </div>
         </div>
 

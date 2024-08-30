@@ -12,7 +12,7 @@
                 </h4>
                 <ul class="content">
                     <li>
-                        <h5>Breed: <span class="prop-text">{{ breed }}</span></h5>
+                        <h5>Vrsta: <span class="prop-text">{{ breed }}</span></h5>
                     </li>
                     <li v-if="price !== null">
                         <h5 class="item-price">€ {{ price }}</h5>
@@ -21,8 +21,8 @@
             </div>
             <div class="item item-3">
                 <div class="buttons">
-                    <router-link :to="itemDetailsLink" class="btn btn-secondary btn-sm">VIEW</router-link>
-                    <button @click="editAd" class="btn btn-outline-secondary btn-sm mt-2" type="button">EDIT</button>
+                    <router-link :to="itemDetailsLink" class="btn btn-secondary btn-sm">PREGLEDAJ</router-link>
+                    <button @click="editAd" class="btn btn-outline-secondary btn-sm mt-2" type="button">UREDI</button>
                 </div>
                 <div class="delete-button">
                     <button @click="showDeleteDialog" class="btn-delete">
@@ -33,11 +33,11 @@
         </div>
         <base-dialog :show="isDialogVisible" title="Confirm Delete" @close="isDialogVisible = false">
             <template #default>
-                <p>Are you sure you want to delete this animal?</p>
+                <p>Jeste li sigurni da želite obrisati životinju?</p>
             </template>
             <template #actions>
-                <base-button @click="confirmDelete">Yes</base-button>
-                <base-button @click="isDialogVisible = false">No</base-button>
+                <base-button @click="confirmDelete">Da</base-button>
+                <base-button @click="isDialogVisible = false">Ne</base-button>
             </template>
         </base-dialog>
     </section>
@@ -250,12 +250,12 @@ h5 {
 .buttons {
     display: flex;
     flex-direction: column;
-    padding-left: 37%;
+    padding-left: 40%;
 }
 
 .buttons button,
 .buttons a {
-    width: 250%;
+    width: 150%;
     margin-bottom: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

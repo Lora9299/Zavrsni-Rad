@@ -8,11 +8,11 @@
                 <p class="name">JOHN DOE</p>
             </div>
             <div class="underline"></div>
-            <p class="description"> I was hesitant to get a cat due to my busy schedule, but Whiskers has brought so
-                much joy into my life.
-                She always greets me when I come home. Her playfulness and affection reduced my stress levels. I highly
-                recommend adopting a cat to anyone
-                looking for a loyal and soothing companion.</p>
+            <p class="description"> Bio sam neodlučan oko nabave mačke zbog svog užurbanog rasporeda, ali
+                Whiskers je donijela toliko radosti u moj život. Uvijek me dočeka pred vratima kad se vratim kući.
+                Njezina
+                razigranost i ljubaznost smanjili su moje razine stresa. Toplo preporučujem usvajanje mačke svakome tko
+                traži odanog i umirujućeg suputnika.</p>
         </div>
         <div class="item">
             <div class="header">
@@ -20,12 +20,10 @@
                 <p class="name">ARIANA GRANDE</p>
             </div>
             <div class="underline"></div>
-            <p class="description">Adopting Toulouse has been life-changing for me. His love for
-                walks has motivated me to stay active. Toulouse's loyalty, sweetness and unconditional love offer
-                immense
-                emotional support. If you're considering getting a dog, know that they bring joy, companionship, and
-                positive
-                change to your life.</p>
+            <p class="description">Usvajanje Toulousa promijenilo je moj život. Njegova ljubav prema šetnjama motivirala
+                me je da ostanem aktivna. Toulousova odanost, ljubaznost i bezuvjetna ljubav pružaju mi ogromnu
+                emocionalnu podršku. Ako razmišljate o nabavi psa, znajte da donose radost, društvo i pozitivne promjene
+                u vaš život.</p>
         </div>
         <div class="item">
             <div class="header">
@@ -33,10 +31,10 @@
                 <p class="name">JANE DOE</p>
             </div>
             <div class="underline"></div>
-            <p class="description">Adopting Garfield has been a life-changing experience. Garfield is full of energy and
-                curiosity, making every day an adventure. He loves to explore every corner of the house and has a
-                playful nature that never fails to make me smile. Adopting a cat is a
-                wonderful way to bring happiness and comfort into your life.</p>
+            <p class="description">Usvajanje Garfielda bilo je iskustvo koje je promijenilo moj život. Garfield je pun
+                energije i znatiželje, čineći svaki dan avanturom. Voli istraživati svaki kutak kuće i ima razigranu
+                narav koja me uvijek nasmijava. Usvajanje mačke sjajan je način da u svoj život donesete sreću i utjehu.
+            </p>
         </div>
 
     </div>

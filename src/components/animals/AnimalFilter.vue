@@ -1,7 +1,7 @@
 <template>
     <span class="filter-option p-5">
         <input type="checkbox" id="adoptable" class="custom-checkbox" :checked="adoptableFilter" @change="setFilter">
-        <label class="custom-label" for="adoptable">ADOPTABLE</label>
+        <label class="custom-label" for="adoptable">ZA UDOMLJAVANJE</label>
     </span>
 </template>
 

@@ -4,21 +4,21 @@
       <ul class="logo">
         <router-link to="/home"><img src="/dogcat.png" alt="Cat and Dog Logo"
             style="width: 50px; height: auto;"></router-link>
-        <li><router-link to="/home">HOME</router-link></li>
+        <li><router-link to="/home">NASLOVNICA</router-link></li>
       </ul>
       <ul class="middle">
         <li class="cat-link">
           <img src="/cat.png" alt="Cat" class="me-1" style="width: 25px; height: auto;">
-          <router-link to="/cats">CATS</router-link>
+          <router-link to="/cats">MAČKE</router-link>
         </li>
         <li class="dog-link">
           <img src="/dog2.png" alt="Dog" style="width: 25px; height: auto;">
-          <router-link to="/dogs">DOGS</router-link>
+          <router-link to="/dogs">PSI</router-link>
         </li>
       </ul>
       <ul class="submit-ad">
         <li v-if="isAuthenticated">
-          <router-link to="/submit-ad">SUBMIT AD</router-link>
+          <router-link to="/submit-ad">PREDAJ OGLAS</router-link>
         </li>
       </ul>
 
@@ -36,11 +36,11 @@
       <ul class="login">
         <li v-if="!isAuthenticated">
           <font-awesome-icon icon="user" class="user-icon" />
-          <router-link to="/login">LOGIN</router-link>
+          <router-link to="/login">PRIJAVI SE</router-link>
         </li>
         <li v-else>
           <font-awesome-icon icon="user" class="user-icon" />
-          <button @click="logoutUser">LOG OUT</button>
+          <button @click="logoutUser">ODJAVA</button>
         </li>
       </ul>
     </nav>
@@ -129,7 +129,7 @@ ul {
 }
 
 ul li {
-  margin: 1rem;
+  margin: 2rem;
   position: relative;
   padding: 4px;
 }

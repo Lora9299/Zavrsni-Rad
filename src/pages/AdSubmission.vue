@@ -10,78 +10,79 @@
                     <base-spinner></base-spinner>
                 </base-dialog>
 
-                <span class="submit-title">{{ isEditMode ? 'EDIT AD' : 'SUBMIT AN AD' }}</span>
+                <span class="submit-title">{{ isEditMode ? 'UREDI OGLAS' : 'PREDAJ OGLAS' }}</span>
                 <form class="form-items" @submit.prevent="submitForm">
                     <div class="left-side">
                         <div class="form-control title-input" :class="{ invalid: !title.isValid }">
-                            <label class="top-label" for="title">TITLE</label>
+                            <label class="top-label" for="title">NASLOV</label>
                             <input type="text" id="title" v-model.trim="title.val" @blur="clearValidity('title')">
-                            <p v-if="!title.isValid">Title can't be empty.</p>
+                            <p v-if="!title.isValid">Polje za naslov ne može biti prazan.</p>
                         </div>
                         <div class="form-control adoption-checkbox">
-                            <label for="adoptable">FOR ADOPTION</label>
+                            <label for="adoptable">ZA UDOMLJAVANJE</label>
                             <input type="checkbox" id="adoptable" v-model="adoptable.val">
                         </div>
                         <div v-if="!adoptable.val" class="form-control price-input">
-                            <label class="price-label" for="price">PRICE</label>
+                            <label class="price-label" for="price">CIJENA</label>
                             <input type="number" id="price" v-model.number="price.val">
                             <label class="euro" for="price">€</label>
                         </div>
                         <div class="form-control type-dropdown">
-                            <label for="type">TYPE OF ANIMAL</label>
+                            <label for="type">TIP ŽIVOTINJE</label>
                             <select id="type" v-model="type.val">
-                                <option value="cat">Cat</option>
-                                <option value="dog">Dog</option>
+                                <option value="cat">Mačka</option>
+                                <option value="dog">Pas</option>
                             </select>
                         </div>
                         <div class="form-control breed-input" :class="{ invalid: !breed.isValid }">
-                            <label class="top-label" for="breed">BREED</label>
+                            <label class="top-label" for="breed">VRSTA</label>
                             <input type="text" id="breed" v-model.trim="breed.val" @blur="clearValidity('breed')">
-                            <p v-if="!breed.isValid">Breed can't be empty.</p>
+                            <p v-if="!breed.isValid">Polje vrste ne može biti prazno.</p>
                         </div>
                     </div>
                     <div class="right-side">
                         <div class="form-control age-input" :class="{ invalid: !age.isValid }">
-                            <label class="top-label" for="age">AGE</label>
+                            <label class="top-label" for="age">DOB</label>
                             <input type="number" id="age" v-model.number="age.val" @blur="clearValidity('age')">
-                            <label class="months-checkbox" for="age" value="months">Months</label>
+                            <label class="months-checkbox" for="age" value="months">Mjeseci</label>
                             <input type="checkbox" id="months" @change="handleCheckboxClick('months')"
                                 v-model="months.val">
-                            <label class="years-checkbox" for="age" value="years">Years</label>
+                            <label class="years-checkbox" for="age" value="years">Godine</label>
                             <input type="checkbox" id="years" @change="handleCheckboxClick('years')"
                                 v-model="years.val">
-                            <p v-if="!age.isValid">Age can't be empty.</p>
+                            <p v-if="!age.isValid">Dob ne može biti prazna.</p>
                         </div>
                         <div class="form-control desc-input" :class="{ invalid: !description.isValid }">
-                            <label class="top-label" for="description">DESCRIPTION </label>
+                            <label class="top-label" for="description">OPIS </label>
                             <textarea type="text" id="description" rows="4" cols="40" v-model.trim="description.val"
                                 @blur="clearValidity('description')"></textarea>
-                            <p v-if="!description.isValid">Description can't be empty.</p>
+                            <p v-if="!description.isValid">Opis ne može biti prazan.</p>
                         </div>
                         <div class="form-control location-input" :class="{ invalid: !location.isValid }">
-                            <label class="top-label" for="location">LOCATION</label>
+                            <label class="top-label" for="location">LOKACIJA</label>
                             <input type="text" id="location" v-model.trim="location.val"
                                 @blur="clearValidity('location')">
-                            <p v-if="!location.isValid">Location can't be empty.</p>
+                            <p v-if="!location.isValid">Lokacija ne smije biti prazna.</p>
                         </div>
                         <div class="form-control" :class="{ invalid: !contact.isValid }">
-                            <label class="top-label" for="contact">CONTACT</label>
+                            <label class="top-label" for="contact">KONTAKT</label>
                             <input type="text" id="contact" v-model.trim="contact.val" @blur="clearValidity('contact')">
-                            <p v-if="!contact.isValid">Contact can't be empty.</p>
+                            <p v-if="!contact.isValid">Kontakt ne smije biti prazan.</p>
                         </div>
                         <div class="form-control img-input">
-                            <label class="image-input" for="image">ADD IMAGES</label>
+                            <label class="image-input" for="image">DODAJ SLIKE</label>
                             <input type="file" id="image" class="input-file" ref="image" @change="handleImageChange"
                                 multiple>
-                            <button class="custom-file-button" @click.prevent="$refs.image.click()">UPLOAD
-                                IMAGES</button>
+                            <button class="custom-file-button" @click.prevent="$refs.image.click()">UČITAJ
+                                SLIKE</button>
                         </div>
                     </div>
                     <div class="submit-container">
-                        <button class="submit-btn" :disabled="isLoading">{{ isEditMode ? 'UPDATE' : 'SUBMIT' }}</button>
+                        <button class="submit-btn"
+                            :disabled="isLoading">{{ isEditMode ? 'AŽURIRAJ' : 'PREDAJ' }}</button>
                     </div>
                     <div class="invalid-form">
-                        <p v-if="!formIsValid"> Please make sure you've entered/checked everything. </p>
+                        <p v-if="!formIsValid"> Provjerite jeste li sve unijeli. </p>
                     </div>
                 </form>
                 <div class="form-background">

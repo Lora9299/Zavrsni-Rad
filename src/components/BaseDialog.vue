@@ -12,7 +12,7 @@
       </section>
       <menu v-if="!fixed">
         <slot name="actions">
-          <base-button @click="close">Close</base-button>
+          <base-button @click="close">Zatvori</base-button>
         </slot>
       </menu>
     </dialog>

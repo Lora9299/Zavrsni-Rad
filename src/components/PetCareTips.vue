@@ -1,49 +1,49 @@
 <template>
 
     <div class="section-title">
-        <h4>PET CARE TIPS</h4>
+        <h4>SAVJETI ZA NJEGU KUĆNIH LJUBIMACA</h4>
     </div>
 
     <div class="item-container">
         <div class="item">
             <div class="item-title">
-                <h5>TIP 1</h5>
+                <h5>SAVJET 1</h5>
                 <div class="separator"></div>
             </div>
-            <div class="item-content">Make sure to make time for playing with your pet, as this can help to drain the
-                excess energy they have.
-                Take your dogs on regular walks, depending on the size of your dog they may need to go for a walk once
-                or twice a day. This will
-                maintain the dogs health and be good daily exercise.
+            <div class="item-content">Odvojite vrijeme za igru sa svojim ljubimcem, to može pomoći da potroše višak
+                energije. Vodite svoje pse u redovite šetnje, a ovisno o veličini vašeg psa možda će trebati ići u
+                šetnju
+                jednom ili dvaput dnevno. To će održati zdravlje vašeg psa i osigurati mu dnevnu vježbu.
             </div>
         </div>
         <div class="item">
             <div class="item-title">
-                <h5>TIP 2</h5>
+                <h5>SAVJET 2</h5>
                 <div class="separator"></div>
             </div>
-            <div class="item-content">Groom your longhaired pets regularly. This can help prevent their fur getting
-                tangled and overgrowing
-                but will also help longhaired cats have less hairballs. </div>
+            <div class="item-content">Redovito češljajte svoje kućne ljubimce. To može spriječiti da im se dlaka
+                zapetlja i previše naraste, a također će pomoći dugodlakim mačkama da im se stvara manje kuglica dlake u
+                stomaku.</div>
         </div>
         <div class="item">
             <div class="item-title">
-                <h5>TIP 3</h5>
+                <h5>SAVJET 3</h5>
                 <div class="separator"></div>
             </div>
-            <div class="item-content">Provide your pets with food full of nutrients, depending on their size. Nutritious
-                food helps
-                maintain the health of your pet and help them live longer.
+            <div class="item-content">Ovisno o veličini vašeg kućnog ljubimca, pružite mu hranu bogatu
+                hranjivim tvarima. Bogata hrana pomaže u održavanju zdravlja vašeg ljubimca i može im pomoći da žive
+                dulje.
             </div>
         </div>
         <div class="item">
             <div class="item-title">
-                <h5>TIP 4</h5>
+                <h5>SAVJET 4</h5>
                 <div class="separator"></div>
             </div>
-            <div class="item-content">Cats thrive in environments that stimulate their natural behaviors such as
-                climbing, scratching, and hunting.
-                Provide a variety of toys, scratching posts, and vertical spaces like cat trees. </div>
+            <div class="item-content"> Mačke se osjećaju bolje u okruženjima koja potiču njihovo prirodno ponašanje, kao
+                što je
+                penjanje, grebanje i lov. Osigurajte im razne igračke, grebalice i vertikalne prostore poput mačjih
+                stabala.</div>
         </div>
     </div>
 

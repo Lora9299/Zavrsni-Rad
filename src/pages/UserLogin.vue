@@ -17,26 +17,26 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-8 mx-auto">
-                                <h3 class="login-heading text-center mb-4">Welcome back!</h3>
+                                <h3 class="login-heading text-center mb-4">Dobrodošli natrag!</h3>
 
                                 <form @submit.prevent="loginUser">
                                     <div class="form-floating mb-3">
                                         <input type="email" class="form-control" id="floatingInput"
                                             placeholder="name@example.com" v-model="email" required>
-                                        <label for="floatingInput">Email address</label>
+                                        <label for="floatingInput">Email adresa</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input type="password" class="form-control" id="floatingPassword"
                                             placeholder="Password" v-model="password" required>
-                                        <label for="floatingPassword">Password</label>
+                                        <label for="floatingPassword">Lozinka</label>
                                     </div>
                                     <div class="d-grid">
                                         <button class="btn btn-lg btn-secondary btn-login text-uppercase fw-bold mb-2"
-                                            type="submit">Login</button>
+                                            type="submit">Prijavi se</button>
                                     </div>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <p>If you don't have an account please <router-link to="/sign-up"
-                                                class="sign-up">Sign Up</router-link>
+                                        <p>Ako nemate korisnički račun <router-link to="/sign-up"
+                                                class="sign-up">Registrirajte se</router-link>
                                         </p>
                                     </div>
                                 </form>
@@ -101,7 +101,7 @@ export default {
     color: gray;
     margin-left: 5px;
     display: inline-block;
-    width: 60px;
+    width: 110px;
 }
 
 .sign-up:hover {

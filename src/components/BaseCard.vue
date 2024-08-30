@@ -10,7 +10,7 @@
                 <slot></slot>
             </div>
             <div class="base-card-footer">
-                <button class="save-button" @click="save">Save</button>
+                <button class="save-button" @click="save">Spremi</button>
             </div>
         </div>
     </div>

@@ -23,12 +23,12 @@
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
+                        <span class="visually-hidden">Prethodno</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
+                        <span class="visually-hidden">Sljedeće</span>
                     </button>
                     <div class="row">
                         <div class="col d-flex justify-content-center flex-wrap">
@@ -43,23 +43,23 @@
                 <div class="advertisement-container">
                     <h1 class="title text-uppercase">{{ title }}</h1>
                     <div class="price" v-if="price !== null">€{{ price }}</div>
-                    <div class="adoption" v-else>FOR ADOPTION</div>
+                    <div class="adoption" v-else>ZA UDOMLJAVANJE</div>
                     <div class="details">
                         <div class="detail-item">
-                            <span class="breed-label">BREED</span>
+                            <span class="breed-label">VRSTA</span>
                             <span class="breed-value">
                                 <p>{{ breed }}</p>
                             </span>
                         </div>
                         <div class="detail-item">
-                            <span class="age-label">AGE</span>
+                            <span class="age-label">DOB</span>
                             <span class="age-value">
-                                <p v-if="years">{{ age }} YEARS</p>
-                                <p v-else>{{ age }} MONTHS</p>
+                                <p v-if="years">{{ age }} GODINE</p>
+                                <p v-else>{{ age }} MJESECI</p>
                             </span>
                         </div>
                     </div>
-                    <div class="description">DESCRIPTION</div>
+                    <div class="description">OPIS</div>
                     <div class="description-card">{{ description }}</div>
                     <div class="footer">
                         <div class="location">
@@ -69,9 +69,9 @@
                             <span class="text">{{ location }}</span>
                         </div>
                         <div class="separator"></div>
-                        <div class="contact">CONTACT: <font-awesome-icon icon="fa-phone" class="icon" /> {{ contact }}
+                        <div class="contact">KONTAKT: <font-awesome-icon icon="fa-phone" class="icon" /> {{ contact }}
                         </div>
-                        <div class="uploader">UPLOADER:</div>
+                        <div class="uploader">VLASNIK OGLASA:</div>
                         <button class="profile-button" @click="showProfileCard = true">
                             {{ uploaderUsername }}</button>
                         <profile-card :show="showProfileCard" :title="profileTitle" class="profile-title"
@@ -173,7 +173,7 @@ export default {
             return this.uploader && this.uploader.profilePicture ? this.uploader.profilePicture : '';
         },
         profileTitle() {
-            return this.uploader ? this.uploader.username + "'s profile" : "Profile";
+            return this.uploader ? this.uploader.username : "Profile";
         }
     },
 
@@ -350,7 +350,7 @@ export default {
     font-weight: bold;
     font-size: 1.4em;
     margin-top: 20px;
-    padding-right: 450px;
+    padding-right: 540px;
 
 }
 
@@ -391,7 +391,7 @@ export default {
 }
 
 .contact {
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: bold;
 }
 

@@ -11,11 +11,11 @@
                     <router-link :to="itemDetailsLink" class="title-link">{{ title }}</router-link>
                 </h4>
                 <li class="content">
-                    <h5>Breed: <span class="prop-text">{{ breed }}</span></h5>
+                    <h5>Vrsta: <span class="prop-text">{{ breed }}</span></h5>
                     <h5>
-                        Age: <span class="prop-text">{{ age }}
-                            <span v-if="months">months</span>
-                            <span v-else-if="years">years</span>
+                        Dob: <span class="prop-text">{{ age }}
+                            <span v-if="months">mjeseca</span>
+                            <span v-else-if="years">godine</span>
                         </span>
                     </h5>
                     <h5 class="item-price" v-if="price !== null">€ {{ price }}</h5>
@@ -23,7 +23,7 @@
             </div>
             <div class="item item-3">
                 <div class="buttons">
-                    <router-link :to="itemDetailsLink" class="btn btn-secondary btn-sm">VIEW</router-link>
+                    <router-link :to="itemDetailsLink" class="btn btn-secondary btn-sm">PREGLEDAJ</router-link>
                 </div>
             </div>
         </div>
@@ -165,12 +165,12 @@ h5 {
 .buttons {
     display: flex;
     flex-direction: column;
-    padding-left: 31%;
+    padding-left: 40%;
 }
 
 .buttons button,
 .buttons a {
-    width: 250%;
+    width: 150%;
     margin-bottom: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
