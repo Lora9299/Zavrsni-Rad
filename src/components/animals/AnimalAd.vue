@@ -276,6 +276,6 @@ h5 {
 .trash-icon {
     color: rgb(191, 56, 56);
     font-size: 1.5rem;
-    margin-top: 10px;
+    margin-left: -40px;
 }
 </style>

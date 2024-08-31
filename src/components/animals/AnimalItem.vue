@@ -15,7 +15,7 @@
                     <h5>
                         Dob: <span class="prop-text">{{ age }}
                             <span v-if="months">mjeseca</span>
-                            <span v-else-if="years">godine</span>
+                            <span v-else-if="years">godina</span>
                         </span>
                     </h5>
                     <h5 class="item-price" v-if="price !== null">€ {{ price }}</h5>
